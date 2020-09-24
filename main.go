@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/terra-project/mantle-official/indexers"
 	"github.com/terra-project/mantle/utils"
 
 	_ "net/http/pprof"
@@ -10,14 +11,14 @@ import (
 )
 
 func main() {
-	badgerdb := badger.NewBadgerDB("")
+	badgerdb := badger.NewBadgerDB("mantle-db")
 	defer badgerdb.Close()
 
 	mantle := app.NewMantle(
 		badgerdb,
-		utils.GenesisDocFromFile("./columbus.json"),
-		//indexers.RegisterIndexAsset,
-		//indexers.RegisterMirrorTx,
+		utils.GenesisDocFromFile("./tequila.json"),
+		indexers.RegisterAccountTxs,
+		indexers.RegisterTxs,
 	)
 
 	mantle.Server()
