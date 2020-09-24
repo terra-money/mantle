@@ -626,8 +626,8 @@ github.com/terra-project/core v0.4.0-rc.4 h1:6ZK9KyUCRWw5kQmcBmTbKy6RZ8UU2ew9T3N
 github.com/terra-project/core v0.4.0-rc.4/go.mod h1:QoddSVukyuI5qM0rFp7xvKjTn/aoK3D177MUt1V7YXM=
 github.com/terra-project/go-cosmwasm v0.10.1-terra h1:3yvESyqndOoJKmmFyGKfQy7rLg2Gz4ULwwoCi4fDqAw=
 github.com/terra-project/go-cosmwasm v0.10.1-terra/go.mod h1:gAFCwllx97ejI+m9SqJQrmd2SBW7HA0fOjvWWJjM2uc=
-github.com/terra-project/mantle v0.1.0-rc.1 h1:7irv5QziQluK6Q1UZo8PvLIUv/nco/0egbO5cB61YF4=
-github.com/terra-project/mantle v0.1.0-rc.1/go.mod h1:AgAwaotxA8jKAk0tIq9RwIdxKPfj+v7AUIchB4gezp0=
+github.com/terra-project/mantle v0.1.1-rc.1 h1:+SXy6mqwJ8eAXbHCU8dTKq+AfXk6cQcmk2TN72kVnUQ=
+github.com/terra-project/mantle v0.1.1-rc.1/go.mod h1:AgAwaotxA8jKAk0tIq9RwIdxKPfj+v7AUIchB4gezp0=
 github.com/terra-project/mantle-compatibility v1.1.1-tequila-rc4/go.mod h1:QqfBS6EpZGpmeobIdHWLCSU5FMFw+4NJ8Oj2H59ABLk=
 github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4 h1:B1ov3HgfboMWAn0dyM9c+sez36A+NG7u0L41YLl5Cys=
 github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4/go.mod h1:BkZXln5cCY8jvHFEyKK2vU/e78Ty3Inlt9yWlqJpfhc=
