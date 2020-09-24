@@ -118,8 +118,6 @@ func IndexTxs(q Query, c Commit) error {
 		}
 	}
 
-	fmt.Println(commitTarget)
-
 	if commitErr := c(commitTarget); commitErr != nil {
 		return commitErr
 	}
