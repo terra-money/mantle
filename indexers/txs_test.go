@@ -56,5 +56,18 @@ func TestDeocdeWasm(t *testing.T) {
 	marshaled, _ := json.Marshal(testMsg)
 
 	target := decodeWasm(testMsg, marshaled)
+
+	testMsg2 := wasm.NewMsgExecuteContract(
+		acc.GetAddress(),
+		acc.GetAddress(),
+		[]byte(fmt.Sprintf(
+			"{\"provide_liquidity\": {\"assets\": [{\"info\": {\"native_token\": {\"denom\": \"uusd\"}}, \"amount\": \"6000000000\"}, {\"info\": {\"token\": {\"contract_addr\": \"%s\"}}, \"amount\": \"6000000\"}]}}",
+			"testing",
+		)),
+		nil,
+	)
+	marshaled, _ = json.Marshal(testMsg2)
+
+	target = decodeWasm(testMsg, marshaled)
 	fmt.Println(string(target))
 }
