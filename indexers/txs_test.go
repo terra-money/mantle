@@ -1,7 +1,9 @@
 package indexers
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/terra-project/core/x/wasm"
 	"github.com/terra-project/mantle-official/test/fixtures"
 	"github.com/terra-project/mantle/test"
 	"sync"
@@ -36,4 +38,23 @@ func TestTxs(t *testing.T) {
 
 	for{}
 
+}
+
+
+func TestDeocdeWasm(t *testing.T) {
+	acc := test.NewAccount("test")
+	testMsg := wasm.NewMsgInstantiateContract(
+		acc.GetAddress(),
+		0,
+		[]byte(fmt.Sprintf(
+			"{\"provide_liquidity\": {\"assets\": [{\"info\": {\"native_token\": {\"denom\": \"uusd\"}}, \"amount\": \"6000000000\"}, {\"info\": {\"token\": {\"contract_addr\": \"%s\"}}, \"amount\": \"6000000\"}]}}",
+			"testing",
+		)),
+		nil,
+		false,
+	)
+	marshaled, _ := json.Marshal(testMsg)
+
+	target := decodeWasm(testMsg, marshaled)
+	fmt.Println(string(target))
 }
