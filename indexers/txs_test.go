@@ -68,6 +68,6 @@ func TestDeocdeWasm(t *testing.T) {
 	)
 	marshaled, _ = json.Marshal(testMsg2)
 
-	target = decodeWasm(testMsg, marshaled)
+	target = decodeWasm(testMsg2, marshaled)
 	fmt.Println(string(target))
 }
