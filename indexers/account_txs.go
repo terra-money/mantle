@@ -1,7 +1,6 @@
 package indexers
 
 import (
-	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/terra-project/core/x/bank"
@@ -10,6 +9,7 @@ import (
 	"github.com/terra-project/core/x/oracle"
 	"github.com/terra-project/core/x/staking"
 	"github.com/terra-project/core/x/wasm"
+	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/types"
 	"reflect"
 )
@@ -22,15 +22,17 @@ func RegisterAccountTxs(register types.Register) {
 }
 
 type AccountTx struct {
-	Account   string `model:"index"`
-	MsgType   string `model:"index"`
-	Tx        mantleTx
+	Account string `model:"index"`
+	MsgType string `model:"index"`
+	TxInfo  TxInfo
+	Tx      mantleTx
 }
 
 type AccountTxs []AccountTx
 
 type request struct {
 	Txs       Txs
+	TxInfos   TxInfos
 	BaseState struct {
 		Height int64
 		Txs    []types.LazyTx
@@ -56,9 +58,10 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 
 			for _, addr := range relatedAddresses {
 				accountTxs = append(accountTxs, AccountTx{
-					Account:   addr,
-					MsgType:   fmt.Sprintf("%s/%s", msg.Route(), msg.Type()),
-					Tx:        req.Txs[txIndex],
+					Account: addr,
+					MsgType: utils.MsgRouteAndTypeToString(msg.Route(), msg.Type()),
+					TxInfo:  req.TxInfos[txIndex],
+					Tx:      req.Txs[txIndex],
 				})
 			}
 		}
