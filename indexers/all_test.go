@@ -11,6 +11,7 @@ import (
 func TestAll(t *testing.T) {
 	simapp, accounts := fixtures.NewTestChain(
 		RegisterAccountTxs,
+		RegisterTxInfos,
 		RegisterTxs,
 	)
 

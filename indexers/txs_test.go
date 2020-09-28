@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/terra-project/core/x/wasm"
 	"github.com/terra-project/mantle-official/test/fixtures"
+	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/test"
 	"sync"
 	"testing"
@@ -55,7 +56,7 @@ func TestDeocdeWasm(t *testing.T) {
 	)
 	marshaled, _ := json.Marshal(testMsg)
 
-	target := decodeWasm(testMsg, marshaled)
+	target := utils.DecodeWasm(testMsg, marshaled)
 
 	testMsg2 := wasm.NewMsgExecuteContract(
 		acc.GetAddress(),
@@ -68,6 +69,6 @@ func TestDeocdeWasm(t *testing.T) {
 	)
 	marshaled, _ = json.Marshal(testMsg2)
 
-	target = decodeWasm(testMsg2, marshaled)
+	target = utils.DecodeWasm(testMsg2, marshaled)
 	fmt.Println(string(target))
 }

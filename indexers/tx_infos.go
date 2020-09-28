@@ -117,7 +117,6 @@ func IndexTxInfos(q Query, c Commit) error {
 
 		// log -> TxxInfoLog
 		rawLogParsed := new([]TxInfoLog)
-		fmt.Println(string(txResult.Log))
 		utils.MustUnmarshal([]byte(txResult.Log), rawLogParsed)
 
 		// txResult.Events -> Events
@@ -132,7 +131,7 @@ func IndexTxInfos(q Query, c Commit) error {
 			}
 			eventsParsed[ei] = TxInfoEvent{
 				Type:       e.Type,
-				Attributes: nil,
+				Attributes: attributes,
 			}
 		}
 
