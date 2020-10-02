@@ -2,6 +2,7 @@ package indexers
 
 import (
 	"fmt"
+	"github.com/terra-project/mantle-official/indexers/blocks"
 	"github.com/terra-project/mantle-official/test/fixtures"
 	"github.com/terra-project/mantle/test"
 	"sync"
@@ -13,6 +14,7 @@ func TestAll(t *testing.T) {
 		RegisterAccountTxs,
 		RegisterTxInfos,
 		RegisterTxs,
+		blocks.RegisterBlocks,
 	)
 
 	fmt.Println("list of all accounts")
