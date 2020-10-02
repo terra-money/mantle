@@ -9,6 +9,6 @@ require (
 	github.com/iancoleman/strcase v0.1.2
 	github.com/tendermint/tendermint v0.33.7
 	github.com/terra-project/core v0.4.0-rc.5
-	github.com/terra-project/mantle v0.1.7
+	github.com/terra-project/mantle v0.1.8
 	github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4
 )
