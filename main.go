@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/terra-project/mantle-official/indexers"
+	"github.com/terra-project/mantle-official/indexers/blocks"
 	"github.com/terra-project/mantle/utils"
 	"log"
 	"os"
@@ -46,6 +47,7 @@ func main() {
 		indexers.RegisterAccountTxs,
 		indexers.RegisterTxInfos,
 		indexers.RegisterTxs,
+		blocks.RegisterBlocks,
 	)
 
 	mantle.Server()
