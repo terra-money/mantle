@@ -27,7 +27,7 @@ type TxInfo struct {
 	Tx           TxInfoStdTx
 
 	// custom
-	Success bool
+	Success bool `model:"index"`
 }
 
 type TxInfoStdTx struct {
@@ -140,7 +140,7 @@ func IndexTxInfos(q Query, c Commit) error {
 		for mi, m := range txdoc.Msgs {
 			msgs[mi] = TxInfoStdTxMsg{
 				Type:  lutils.MsgRouteAndTypeToString(m.Route(), m.Type()),
-				Value: NewJSONScalar(m, lutils.DecodeWasm),
+				Value: NewJSONScalar(m, nil),
 			}
 		}
 
