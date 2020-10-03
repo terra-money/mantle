@@ -2,12 +2,12 @@ package indexers
 
 import (
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	lutils "github.com/terra-project/mantle-official/utils"
 	. "github.com/terra-project/mantle/types"
-	"github.com/terra-project/mantle/utils"
 	"reflect"
 	"time"
 )
@@ -117,7 +117,11 @@ func IndexTxInfos(q Query, c Commit) error {
 
 		// log -> TxxInfoLog
 		rawLogParsed := new([]TxInfoLog)
-		utils.MustUnmarshal([]byte(txResult.Log), rawLogParsed)
+		if unmarshalErr := json.Unmarshal([]byte(txResult.Log), rawLogParsed); unmarshalErr != nil {
+			// this means that the log is plain string.
+			// leave rawLogParsed as nil
+			// noop
+		}
 
 		// txResult.Events -> Events
 		eventsParsed := make([]TxInfoEvent, len(txResult.Events))
