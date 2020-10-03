@@ -13,21 +13,15 @@ import (
 	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/types"
+	mantleutils "github.com/terra-project/mantle/utils"
 	"reflect"
 )
 
-func RegisterAccountTxs(register types.Register) {
-	register(
-		IndexAccountTx,
-		reflect.TypeOf((*AccountTxs)(nil)),
-	)
-}
-
 type AccountTx struct {
-	Account string `model:"index"`
-	MsgType string `model:"index"`
-	TxInfo  tx_infos.TxInfo
-	Tx      txs.MantleTx
+	Account           string `model:"index"`
+	MsgType           string `model:"index"`
+	TxInfo            tx_infos.TxInfo
+	Tx                txs.MantleTx
 }
 
 type AccountTxs []AccountTx
@@ -39,6 +33,13 @@ type request struct {
 		Height int64
 		Txs    []types.LazyTx
 	}
+}
+
+func RegisterAccountTxs(register types.Register) {
+	register(
+		IndexAccountTx,
+		reflect.TypeOf((*AccountTxs)(nil)),
+	)
 }
 
 func IndexAccountTx(query types.Query, commit types.Commit) error {
@@ -56,6 +57,14 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 			var relatedAddresses []string
 			if relatedAddresses = getAddressFromMsg(msg); len(relatedAddresses) == 0 {
 				continue
+			}
+
+			// handle cw20 transfers too
+			if msgExecute, isMsgExecute := msg.(wasm.MsgExecuteContract); isMsgExecute {
+				cw20Recipient := getCW20TransferRecipient(msgExecute)
+				if cw20Recipient != "" {
+					relatedAddresses = append(relatedAddresses, cw20Recipient)
+				}
 			}
 
 			for _, addr := range relatedAddresses {
@@ -187,4 +196,25 @@ func getAddressFromMsg(msg sdk.Msg) []string {
 	}
 
 	return nil
+}
+
+func getCW20TransferRecipient(msg wasm.MsgExecuteContract) string {
+	executeMsgString := msg.ExecuteMsg.Bytes()
+	msgExecuteContract := new(struct {
+		Transfer struct {
+			Amount    string `json:"amount"`
+			Recipient string `json:"recipient"`
+		} `json:"transfer"`
+	})
+
+	mantleutils.MustUnmarshal(executeMsgString, msgExecuteContract)
+
+	var isValidCW20Transfer = !utils.IsZero(msgExecuteContract) && !utils.IsZero(msgExecuteContract.Transfer) && !utils.IsZero(msgExecuteContract.Transfer.Recipient) && !utils.IsZero(msgExecuteContract.Transfer.Amount)
+
+	// skip if this is not cw20 transfer
+	if !isValidCW20Transfer {
+		return ""
+	}
+
+	return msgExecuteContract.Transfer.Recipient
 }
