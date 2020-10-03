@@ -4,7 +4,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"github.com/terra-project/core/x/wasm"
+	"reflect"
 )
+
+func IsZero(data interface{}) bool {
+	return reflect.Indirect(reflect.ValueOf(data)).IsZero()
+}
 
 func DecodeWasm(oMsg interface{}, data []byte) []byte {
 	switch oMsg.(type) {

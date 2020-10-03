@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/terra-project/core/x/wasm"
-	"github.com/terra-project/mantle-official/indexers"
 	"github.com/terra-project/mantle-official/test/fixtures"
 	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/test"
@@ -30,7 +29,7 @@ func TestTxs(t *testing.T) {
 		for j := 0; j < len(accounts)-1; j++ {
 			sender := accounts[j]
 			receiver := accounts[j+1]
-			go indexers.AppendTxAsync(testBlock, sender, receiver, &wg)
+			go utils.AppendTxAsync(testBlock, sender, receiver, &wg)
 		}
 
 		wg.Wait()

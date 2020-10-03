@@ -1,4 +1,4 @@
-package indexers
+package utils
 
 import (
 	"github.com/terra-project/mantle/test"

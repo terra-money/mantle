@@ -7,6 +7,7 @@ import (
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/test/fixtures"
+	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/test"
 	"sync"
 	"testing"
@@ -33,7 +34,7 @@ func TestAll(t *testing.T) {
 		for j := 0; j < len(accounts)-1; j++ {
 			sender := accounts[j]
 			receiver := accounts[j+1]
-			go AppendTxAsync(testBlock, sender, receiver, &wg)
+			go utils.AppendTxAsync(testBlock, sender, receiver, &wg)
 		}
 
 		wg.Wait()
