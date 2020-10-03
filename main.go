@@ -1,8 +1,10 @@
 package main
 
 import (
-	"github.com/terra-project/mantle-official/indexers"
+	"github.com/terra-project/mantle-official/indexers/account_txs"
 	"github.com/terra-project/mantle-official/indexers/blocks"
+	"github.com/terra-project/mantle-official/indexers/tx_infos"
+	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle/utils"
 	"log"
 	"os"
@@ -44,9 +46,9 @@ func main() {
 	mantle := app.NewMantle(
 		badgerdb,
 		utils.GenesisDocFromFile(genesisPath),
-		indexers.RegisterAccountTxs,
-		indexers.RegisterTxInfos,
-		indexers.RegisterTxs,
+		account_txs.RegisterAccountTxs,
+		tx_infos.RegisterTxInfos,
+		txs.RegisterTxs,
 		blocks.RegisterBlocks,
 	)
 
