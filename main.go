@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/terra-project/mantle-official/indexers/account_txs"
 	"github.com/terra-project/mantle-official/indexers/blocks"
+	"github.com/terra-project/mantle-official/indexers/cw20"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle/utils"
@@ -50,6 +51,7 @@ func main() {
 		tx_infos.RegisterTxInfos,
 		txs.RegisterTxs,
 		blocks.RegisterBlocks,
+		cw20.RegisterCW20Transfers,
 	)
 
 	mantle.Server()
