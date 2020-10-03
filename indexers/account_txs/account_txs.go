@@ -9,7 +9,6 @@ import (
 	"github.com/terra-project/core/x/oracle"
 	"github.com/terra-project/core/x/staking"
 	"github.com/terra-project/core/x/wasm"
-	"github.com/terra-project/mantle-official/indexers"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/utils"
@@ -28,7 +27,7 @@ type AccountTx struct {
 	Account string `model:"index"`
 	MsgType string `model:"index"`
 	TxInfo  tx_infos.TxInfo
-	Tx      indexers.mantleTx
+	Tx      txs.MantleTx
 }
 
 type AccountTxs []AccountTx

@@ -11,37 +11,37 @@ import (
 	"time"
 )
 
-// mantle-specific tx type
-type mantleTx struct {
+// Mantle-specific tx type
+type MantleTx struct {
 	Hash       string `model:"index"`
 	TxString   string
 	HeightAt   uint64 `model:"index"`
 	Timestamp  int64  `model:"index"`
 	Success    bool
 	Fee        auth.StdFee
-	Signatures []mantleSignature
-	Msg        []mantleTxMsg
+	Signatures []MantleSignature
+	Msg        []MantleTxMsg
 	Memo       string
 	Result     ResponseDeliverTx
 }
 
-type mantleTxMsg struct {
+type MantleTxMsg struct {
 	Route string
 	Type  string
 	Value JSONScalar
 }
 
-type mantleSignature struct {
-	PubKey    mantleSignaturePubKey
+type MantleSignature struct {
+	PubKey    MantleSignaturePubKey
 	Signature string
 }
 
-type mantleSignaturePubKey struct {
+type MantleSignaturePubKey struct {
 	Type  string
 	Value string
 }
 
-type Txs []mantleTx
+type Txs []MantleTx
 
 func RegisterTxs(register Register) {
 	register(
@@ -68,7 +68,7 @@ func IndexTxs(q Query, c Commit) error {
 		return fmt.Errorf("fetching txs failed, err=%s", queryErr)
 	}
 
-	// transform txs into mantleTx
+	// transform txs into MantleTx
 	txs := request.BaseState.Txs
 	txResults := request.BaseState.DeliverTxResponses
 	timeInUint64, timeErr := time.Parse(time.RFC3339, request.BaseState.Block.Header.Time)
@@ -86,7 +86,7 @@ func IndexTxs(q Query, c Commit) error {
 		txdoc := tx.Decode()
 
 		// recreate msgs
-		mmsg := make([]mantleTxMsg, len(txdoc.Msgs))
+		mmsg := make([]MantleTxMsg, len(txdoc.Msgs))
 
 		for j, msg := range txdoc.Msgs {
 			mmsg[j].Type = msg.Type()
@@ -94,10 +94,10 @@ func IndexTxs(q Query, c Commit) error {
 			mmsg[j].Value = NewJSONScalar(msg, lutils.DecodeWasm)
 		}
 
-		signatures := make([]mantleSignature, len(txdoc.Signatures))
+		signatures := make([]MantleSignature, len(txdoc.Signatures))
 		for j, signature := range txdoc.Signatures {
-			signatures[j] = mantleSignature{
-				PubKey: mantleSignaturePubKey{
+			signatures[j] = MantleSignature{
+				PubKey: MantleSignaturePubKey{
 					Type:  "tendermint/PubKeySecp256k1",
 					Value: string(signature.PubKey.Bytes()),
 				},
@@ -105,7 +105,7 @@ func IndexTxs(q Query, c Commit) error {
 			}
 		}
 
-		commitTarget[txIndex] = mantleTx{
+		commitTarget[txIndex] = MantleTx{
 			Hash:       fmt.Sprintf("%X", txHash),
 			TxString:   tx.TxString,
 			Timestamp:  timeInUint64.Unix(),
