@@ -2,7 +2,6 @@ package cw20
 
 import (
 	"encoding/base64"
-	"fmt"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	utils2 "github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/types"
@@ -91,8 +90,6 @@ func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 			if !isValidCW20Transfer {
 				continue
 			}
-
-			fmt.Println("hey!")
 
 			// create payloads
 			// note that we need to create 2 CW20Transfer payloads for each transfer,
