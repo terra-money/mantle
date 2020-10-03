@@ -2,7 +2,10 @@ package indexers
 
 import (
 	"fmt"
+	"github.com/terra-project/mantle-official/indexers/account_txs"
 	"github.com/terra-project/mantle-official/indexers/blocks"
+	"github.com/terra-project/mantle-official/indexers/tx_infos"
+	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/test/fixtures"
 	"github.com/terra-project/mantle/test"
 	"sync"
@@ -11,9 +14,9 @@ import (
 
 func TestAll(t *testing.T) {
 	simapp, accounts := fixtures.NewTestChain(
-		RegisterAccountTxs,
-		RegisterTxInfos,
-		RegisterTxs,
+		account_txs.RegisterAccountTxs,
+		tx_infos.RegisterTxInfos,
+		txs.RegisterTxs,
 		blocks.RegisterBlocks,
 	)
 

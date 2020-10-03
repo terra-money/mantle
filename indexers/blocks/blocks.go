@@ -1,7 +1,7 @@
 package blocks
 
 import (
-	"github.com/terra-project/mantle-official/indexers"
+	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	"github.com/terra-project/mantle/types"
 	"reflect"
 )
@@ -11,7 +11,7 @@ import (
 type Block struct {
 	Height uint64
 	Header types.Header
-	Txs indexers.TxInfos
+	Txs    tx_infos.TxInfos
 }
 
 type Blocks []Block
@@ -28,7 +28,7 @@ func IndexBlocks(query types.Query, commit types.Commit) error {
 		BaseState struct {
 			Block types.Block
 		}
-		TxInfos indexers.TxInfos
+		TxInfos tx_infos.TxInfos
 	})
 
 	if queryErr := query(queryBlock, nil); queryErr != nil {

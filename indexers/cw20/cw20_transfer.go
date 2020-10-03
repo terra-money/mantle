@@ -2,7 +2,8 @@ package cw20
 
 import (
 	"encoding/base64"
-	"github.com/terra-project/mantle-official/indexers"
+	"fmt"
+	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	utils2 "github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/types"
 	"github.com/terra-project/mantle/utils"
@@ -10,13 +11,13 @@ import (
 )
 
 type CW20Transfer struct {
-	Height uint64
-	Sender string `model:"index"`
-	Recipient string `model:"index"`
-	Contract string `model:"index"`
-	Address string `model:"index"`
+	Height       uint64
+	Sender       string `model:"index"`
+	Recipient    string `model:"index"`
+	Contract     string `model:"index"`
+	Address      string `model:"index"`
 	TransferType string `model:"index"` // send|receive
-	Amount string `model:"index"`// wasm:uint128
+	Amount       string `model:"index"` // wasm:uint128
 }
 
 type CW20Transfers []CW20Transfer
@@ -30,7 +31,7 @@ func RegisterCW20Transfers(register types.Register) {
 
 func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 	txInfosQuery := new(struct {
-		TxInfos indexers.TxInfos
+		TxInfos tx_infos.TxInfos
 	})
 
 	if queryErr := query(txInfosQuery, nil); queryErr != nil {
@@ -41,76 +42,79 @@ func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 	var commitTargets CW20Transfers
 	for _, tx := range txInfosQuery.TxInfos {
 		// skip if this tx is not successful
-		if !tx.Success { continue }
+		if !tx.Success {
+			continue
+		}
 
 		for _, msg := range tx.Tx.Msg {
 			// skip if not wasm/MsgExecuteContract
-			if msg.Type != "wasm/MsgExecuteContract" { continue }
+			if msg.Type != "wasm/MsgExecuteContract" {
+				continue
+			}
 
 			// check if MsgExecuteContract has "transfer" key
 			msgPayload := new(struct {
-				sender string `json:"sender"`
-				contract string `json:"contract"`
-				executeMsg string `json:"execute_msg"`
+				Sender     string `json:"sender"`
+				Contract   string `json:"contract"`
+				ExecuteMsg string `json:"execute_msg"`
 			})
 
 			utils.MustUnmarshal([]byte(msg.Value), msgPayload)
 
-			var isValidExecuteMsg = !utils2.IsZero(msgPayload.sender) && !utils2.IsZero(msgPayload.contract) && !tils2.IsZero(msgPayload.executeMsg)
+			var isValidExecuteMsg = !utils2.IsZero(msgPayload.Sender) && !utils2.IsZero(msgPayload.Contract) && !utils2.IsZero(msgPayload.ExecuteMsg)
 			if !isValidExecuteMsg {
 				continue
 			}
 
-			// skip if this executeMsg does NOT contain executeMsg
-			if utils2.IsZero(msgPayload.executeMsg) {
-				continue
-			}
-
 			msgExecuteContract := new(struct {
-				transfer struct {
-					amount string `json:"amount"`
-					recipient string `json:"recipient"`
+				Transfer struct {
+					Amount    string `json:"amount"`
+					Recipient string `json:"recipient"`
 				} `json:"transfer"`
 			})
-			decodedMsgExecuteContract, decodeErr := base64.StdEncoding.DecodeString(msgPayload.executeMsg)
+
+			decodedMsgExecuteContract, decodeErr := base64.StdEncoding.DecodeString(msgPayload.ExecuteMsg)
 			if decodeErr != nil {
 				return decodeErr
 			}
-			utils.MustUnmarshal([]byte(msgPayload.executeMsg), decodedMsgExecuteContract)
+
+			utils.MustUnmarshal(decodedMsgExecuteContract, msgExecuteContract)
 
 			// skip if this executeMsg does NOT contain transfer
-			if utils2.IsZero(msgExecuteContract.transfer) {
+			if utils2.IsZero(msgExecuteContract.Transfer) {
 				continue
 			}
 
 			// skip if this executeMsg has transfer,
 			// but does not comply with CW20 spec
-			var isValidCW20Transfer = !utils2.IsZero(msgExecuteContract.transfer.amount) && !utils2.IsZero(msgExecuteContract.transfer.recipient)
+			var isValidCW20Transfer = !utils2.IsZero(msgExecuteContract.Transfer.Amount) && !utils2.IsZero(msgExecuteContract.Transfer.Recipient)
 			if !isValidCW20Transfer {
 				continue
 			}
+
+			fmt.Println("hey!")
 
 			// create payloads
 			// note that we need to create 2 CW20Transfer payloads for each transfer,
 			// one for send and one for receive
 			commitTargets = append(commitTargets, CW20Transfer{
 				Height:       tx.Height,
-				Sender:       msgPayload.sender,
-				Recipient:    msgExecuteContract.transfer.recipient,
-				Contract:     msgPayload.contract,
-				Address:      msgPayload.sender,
+				Sender:       msgPayload.Sender,
+				Recipient:    msgExecuteContract.Transfer.Recipient,
+				Contract:     msgPayload.Contract,
+				Address:      msgPayload.Sender,
 				TransferType: "send",
-				Amount:       msgExecuteContract.transfer.amount,
+				Amount:       msgExecuteContract.Transfer.Amount,
 			})
 
 			commitTargets = append(commitTargets, CW20Transfer{
 				Height:       tx.Height,
-				Sender:       msgPayload.sender,
-				Recipient:    msgExecuteContract.transfer.recipient,
-				Contract:     msgPayload.contract,
-				Address:      msgExecuteContract.transfer.recipient,
+				Sender:       msgPayload.Sender,
+				Recipient:    msgExecuteContract.Transfer.Recipient,
+				Contract:     msgPayload.Contract,
+				Address:      msgExecuteContract.Transfer.Recipient,
 				TransferType: "receive",
-				Amount:       msgExecuteContract.transfer.amount,
+				Amount:       msgExecuteContract.Transfer.Amount,
 			})
 		}
 	}
