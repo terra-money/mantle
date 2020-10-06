@@ -1,6 +1,7 @@
 package account_txs
 
 import (
+	"encoding/json"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/distribution"
 	"github.com/terra-project/core/x/bank"
@@ -13,7 +14,6 @@ import (
 	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/types"
-	mantleutils "github.com/terra-project/mantle/utils"
 	"reflect"
 )
 
@@ -61,7 +61,12 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 
 			// handle cw20 transfers too
 			if msgExecute, isMsgExecute := msg.(wasm.MsgExecuteContract); isMsgExecute {
-				cw20Recipient := getCW20TransferRecipient(msgExecute)
+				cw20Recipient, cw20Err := getCW20TransferRecipient(msgExecute)
+				if cw20Err != nil {
+					// unmarshal error cannot be handled
+					// skip
+					continue
+				}
 				if cw20Recipient != "" {
 					relatedAddresses = append(relatedAddresses, cw20Recipient)
 				}
@@ -198,7 +203,7 @@ func getAddressFromMsg(msg sdk.Msg) []string {
 	return nil
 }
 
-func getCW20TransferRecipient(msg wasm.MsgExecuteContract) string {
+func getCW20TransferRecipient(msg wasm.MsgExecuteContract) (string, error) {
 	executeMsgString := msg.ExecuteMsg.Bytes()
 	msgExecuteContract := new(struct {
 		Transfer struct {
@@ -207,14 +212,16 @@ func getCW20TransferRecipient(msg wasm.MsgExecuteContract) string {
 		} `json:"transfer"`
 	})
 
-	mantleutils.MustUnmarshal(executeMsgString, msgExecuteContract)
+	if unmarshalErr := json.Unmarshal(executeMsgString, msgExecuteContract); unmarshalErr != nil {
+		return "", unmarshalErr
+	}
 
 	var isValidCW20Transfer = !utils.IsZero(msgExecuteContract) && !utils.IsZero(msgExecuteContract.Transfer) && !utils.IsZero(msgExecuteContract.Transfer.Recipient) && !utils.IsZero(msgExecuteContract.Transfer.Amount)
 
 	// skip if this is not cw20 transfer
 	if !isValidCW20Transfer {
-		return ""
+		return "", nil
 	}
 
-	return msgExecuteContract.Transfer.Recipient
+	return msgExecuteContract.Transfer.Recipient, nil
 }
