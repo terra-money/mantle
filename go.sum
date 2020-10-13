@@ -637,9 +637,6 @@ github.com/terra-project/core v0.4.0-rc.5 h1:8Gn9AH54yzy84/+mQfZRuiiTXai5B2BEJI1
 github.com/terra-project/core v0.4.0-rc.5/go.mod h1:QoddSVukyuI5qM0rFp7xvKjTn/aoK3D177MUt1V7YXM=
 github.com/terra-project/go-cosmwasm v0.10.1-terra h1:3yvESyqndOoJKmmFyGKfQy7rLg2Gz4ULwwoCi4fDqAw=
 github.com/terra-project/go-cosmwasm v0.10.1-terra/go.mod h1:gAFCwllx97ejI+m9SqJQrmd2SBW7HA0fOjvWWJjM2uc=
-github.com/terra-project/mantle v0.1.8 h1:24elyhJWRjSPaP1Qz7icvR09oYE/wykEb3Nh8ZUPe20=
-github.com/terra-project/mantle v0.1.8/go.mod h1:AgAwaotxA8jKAk0tIq9RwIdxKPfj+v7AUIchB4gezp0=
-github.com/terra-project/mantle-compatibility v1.1.1-tequila-rc4/go.mod h1:QqfBS6EpZGpmeobIdHWLCSU5FMFw+4NJ8Oj2H59ABLk=
 github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4 h1:B1ov3HgfboMWAn0dyM9c+sez36A+NG7u0L41YLl5Cys=
 github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4/go.mod h1:BkZXln5cCY8jvHFEyKK2vU/e78Ty3Inlt9yWlqJpfhc=
 github.com/tidwall/pretty v1.0.0 h1:HsD+QiTn7sK6flMKIvNmpqz1qrpP3Ps6jOKIKMooyg4=

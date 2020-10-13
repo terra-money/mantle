@@ -4,6 +4,8 @@ go 1.14
 
 replace github.com/CosmWasm/go-cosmwasm => github.com/terra-project/go-cosmwasm v0.10.1-terra
 
+replace github.com/terra-project/mantle => ../mantle
+
 require (
 	github.com/cosmos/cosmos-sdk v0.39.1
 	github.com/iancoleman/strcase v0.1.2

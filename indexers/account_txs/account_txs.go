@@ -31,7 +31,7 @@ type request struct {
 	TxInfos   tx_infos.TxInfos
 	BaseState struct {
 		Height int64
-		Txs    []types.LazyTx
+		Txs    []types.Tx
 	}
 }
 
@@ -51,7 +51,13 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 	accountTxs := AccountTxs{}
 
 	for txIndex, tx := range req.BaseState.Txs {
-		txdoc := tx.Decode()
+		txdoc, txdocErr := types.TxDecoder(tx)
+		if txdocErr != nil {
+			return txdocErr
+		}
+		if !req.TxInfos[txIndex].Success {
+			continue
+		}
 
 		for _, msg := range txdoc.GetMsgs() {
 			var relatedAddresses []string

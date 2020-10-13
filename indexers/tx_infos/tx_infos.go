@@ -1,11 +1,9 @@
 package tx_infos
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/tendermint/tendermint/crypto/tmhash"
 	lutils "github.com/terra-project/mantle-official/utils"
 	. "github.com/terra-project/mantle/types"
 	"reflect"
@@ -48,7 +46,7 @@ type TxInfoStdTxSignaturePubKey struct {
 }
 
 type TxInfoStdFee struct {
-	Amount sdk.Coins `json:"amount" yaml:"amount"`
+	Amount sdk.Coins
 	Gas    uint64
 }
 
@@ -88,10 +86,10 @@ func IndexTxInfos(q Query, c Commit) error {
 			Height int64
 			Block  struct {
 				Header struct {
-					Time string
+					Time time.Time
 				}
 			}
-			Txs                []LazyTx
+			Txs                []Tx
 			DeliverTxResponses []ResponseDeliverTx
 		}
 	})
@@ -106,14 +104,13 @@ func IndexTxInfos(q Query, c Commit) error {
 	var commitTarget = make(TxInfos, len(txs))
 
 	for txIndex, tx := range txs {
-		txBytes, txBytesErr := base64.StdEncoding.DecodeString(tx.TxString)
-		if txBytesErr != nil {
-			return fmt.Errorf("tx byte decode failed, err=%s", txBytesErr)
-		}
-		txHash := tmhash.Sum(txBytes)
+		txHash := tx.Hash()
 		txResult := txResults[txIndex]
-		txdoc := tx.Decode()
-		timeInUint64, _ := time.Parse(time.RFC3339, request.BaseState.Block.Header.Time)
+		txdoc, err := TxDecoder(tx)
+
+		if err != nil {
+			return err
+		}
 
 		// log -> TxxInfoLog
 		rawLogParsed := new([]TxInfoLog)
@@ -173,8 +170,8 @@ func IndexTxInfos(q Query, c Commit) error {
 			Logs:         *rawLogParsed,
 			GasWanted:    uint64(txResult.GasWanted),
 			GasUsed:      uint64(txResult.GasUsed),
-			Timestamp:    request.BaseState.Block.Header.Time,
-			TimestampUTC: uint64(timeInUint64.UnixNano()),
+			Timestamp:    request.BaseState.Block.Header.Time.Format(time.RFC3339Nano),
+			TimestampUTC: uint64(request.BaseState.Block.Header.Time.UnixNano()),
 			Events:       eventsParsed,
 			Code:         uint64(txResult.Code),
 			Tx: TxInfoStdTx{

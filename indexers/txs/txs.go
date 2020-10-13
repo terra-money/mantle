@@ -1,9 +1,7 @@
 package txs
 
 import (
-	"encoding/base64"
 	"fmt"
-	"github.com/tendermint/tendermint/crypto/tmhash"
 	"github.com/terra-project/core/x/auth"
 	lutils "github.com/terra-project/mantle-official/utils"
 	. "github.com/terra-project/mantle/types"
@@ -56,10 +54,10 @@ func IndexTxs(q Query, c Commit) error {
 			Height int64
 			Block  struct {
 				Header struct {
-					Time string
+					Time time.Time
 				}
 			}
-			Txs                []LazyTx
+			Txs                []Tx
 			DeliverTxResponses []ResponseDeliverTx
 		}
 	})
@@ -71,19 +69,14 @@ func IndexTxs(q Query, c Commit) error {
 	// transform txs into MantleTx
 	txs := request.BaseState.Txs
 	txResults := request.BaseState.DeliverTxResponses
-	timeInUint64, timeErr := time.Parse(time.RFC3339, request.BaseState.Block.Header.Time)
-	if timeErr != nil {
-		return timeErr
-	}
 	var commitTarget = make(Txs, len(txs))
 
 	for txIndex, tx := range txs {
-		txBytes, txBytesErr := base64.StdEncoding.DecodeString(tx.TxString)
-		if txBytesErr != nil {
-			return fmt.Errorf("tx byte decode failed, err=%s", txBytesErr)
+		txHash := tx.Hash()
+		txdoc, err := TxDecoder(tx)
+		if err != nil {
+			return err
 		}
-		txHash := tmhash.Sum(txBytes)
-		txdoc := tx.Decode()
 
 		// recreate msgs
 		mmsg := make([]MantleTxMsg, len(txdoc.Msgs))
@@ -107,8 +100,8 @@ func IndexTxs(q Query, c Commit) error {
 
 		commitTarget[txIndex] = MantleTx{
 			Hash:       fmt.Sprintf("%X", txHash),
-			TxString:   tx.TxString,
-			Timestamp:  timeInUint64.Unix(),
+			TxString:   tx.String(),
+			Timestamp:  request.BaseState.Block.Header.Time.UnixNano(),
 			HeightAt:   uint64(request.BaseState.Height),
 			Success:    txResults[0].IsOK() && !txResults[0].IsErr(),
 			Fee:        txdoc.Fee,

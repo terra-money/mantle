@@ -17,6 +17,7 @@ type CW20Transfer struct {
 	Address      string `model:"index"`
 	TransferType string `model:"index"` // send|receive
 	Amount       string `model:"index"` // wasm:uint128
+	TxHash       string `model:"index"`
 }
 
 type CW20Transfers []CW20Transfer
@@ -102,6 +103,7 @@ func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 				Address:      msgPayload.Sender,
 				TransferType: "send",
 				Amount:       msgExecuteContract.Transfer.Amount,
+				TxHash:       tx.TxHash,
 			})
 
 			commitTargets = append(commitTargets, CW20Transfer{
@@ -112,6 +114,7 @@ func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 				Address:      msgExecuteContract.Transfer.Recipient,
 				TransferType: "receive",
 				Amount:       msgExecuteContract.Transfer.Amount,
+				TxHash:       tx.TxHash,
 			})
 		}
 	}

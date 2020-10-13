@@ -4,11 +4,9 @@ import (
 	"fmt"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	"github.com/terra-project/mantle-official/test/fixtures"
+	"github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle/app"
 	"github.com/terra-project/mantle/test"
-	"github.com/terra-project/mantle/types"
-	"io/ioutil"
-	"path/filepath"
 	"testing"
 )
 
@@ -32,17 +30,17 @@ func TestCW20(t *testing.T) {
 	var recipient = accounts[1]
 
 	// store code
-	_ = mustPass(simapp.Inject(test.NewBlock().
+	_ = utils.MustPass(simapp.Inject(test.NewBlock().
 		WithTx(test.NewTx().
 			WithMsg(test.NewMsgStoreCode(
 				accounts[0].GetAddress(),
-				getWasmBytes("../../test/fixtures/terraswap_token.wasm"),
+				utils.GetWasmBytes("../../test/fixtures/terraswap_token.wasm"),
 			),
 		).ToTx(owner)).
 	ToBlock()))
 
 	// instantiate
-	tokenAddress := getContractAddressFromInstantiate(simapp.Inject(test.NewBlock().WithTx(test.NewTx().WithMsg(test.NewMsgInstantiateContract(
+	tokenAddress := utils.GetContractAddressFromInstantiate(simapp.Inject(test.NewBlock().WithTx(test.NewTx().WithMsg(test.NewMsgInstantiateContract(
 		owner.GetAddress(),
 		1,
 		[]byte(fmt.Sprintf(
@@ -68,42 +66,4 @@ func TestCW20(t *testing.T) {
 	// check indexed result
 	for{}
 
-}
-
-func getWasmBytes(p string) (wasmBytes []byte) {
-	filename, _ := filepath.Abs(p)
-	var wasmBytesErr error
-	if wasmBytes, wasmBytesErr = ioutil.ReadFile(filename); wasmBytesErr != nil {
-		panic(wasmBytesErr)
-	}
-
-	return
-}
-
-
-func getContractAddressFromInstantiate(result types.BaseState) string {
-	var addr string
-	for _, event := range result.DeliverTxResponses[0].Events {
-		switch event.Type {
-		case "instantiate_contract":
-			for _, attr := range event.Attributes {
-				switch string(attr.Key) {
-				case "contract_address":
-					addr = string(attr.Value)
-				}
-			}
-		}
-	}
-
-	return addr
-}
-
-func mustPass(result types.BaseState) types.BaseState {
-	for _, result := range result.DeliverTxResponses {
-		if result.IsErr() || !result.IsOK() {
-			panic(result.Log)
-		}
-	}
-
-	return result
 }

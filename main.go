@@ -54,7 +54,7 @@ func main() {
 		cw20.RegisterCW20Transfers,
 	)
 
-	mantle.Server()
+	mantle.Server(1337)
 	mantle.Sync(app.SyncConfiguration{
 		TendermintEndpoint: endpoint,
 		SyncUntil:          syncUntil,

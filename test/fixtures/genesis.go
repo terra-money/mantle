@@ -35,7 +35,7 @@ func NewTestChain(indexers ...types.IndexerRegisterer) (*app.Mantle, []test.Test
 		indexers...,
 	)
 
-	simapp.Server()
+	simapp.Server(1337)
 
 	return simapp, accounts
 }

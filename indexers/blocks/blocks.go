@@ -11,7 +11,7 @@ import (
 type Block struct {
 	Height uint64
 	Header types.Header
-	Txs    tx_infos.TxInfos
+	Txs    []*tx_infos.TxInfo
 }
 
 type Blocks []Block
@@ -39,7 +39,9 @@ func IndexBlocks(query types.Query, commit types.Commit) error {
 	var commitTarget = Block{}
 	commitTarget.Height = uint64(queryBlock.BaseState.Block.Header.Height)
 	commitTarget.Header = queryBlock.BaseState.Block.Header
-	commitTarget.Txs = queryBlock.TxInfos
+	for _, txInfo := range queryBlock.TxInfos {
+		commitTarget.Txs = append(commitTarget.Txs, &txInfo)
+	}
 
 	var asSlice = Blocks{commitTarget}
 	if commitErr := commit(asSlice); commitErr != nil {
