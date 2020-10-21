@@ -5,8 +5,7 @@ import (
 	"github.com/terra-project/mantle-official/indexers/blocks"
 	"github.com/terra-project/mantle-official/indexers/cw20"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/indexers/txs"
-	"github.com/terra-project/mantle/utils"
+	"github.com/terra-project/mantle-sdk/utils"
 	"log"
 	"os"
 	"reflect"
@@ -14,8 +13,8 @@ import (
 
 	_ "net/http/pprof"
 
-	"github.com/terra-project/mantle/app"
-	"github.com/terra-project/mantle/db/badger"
+	"github.com/terra-project/mantle-sdk/app"
+	"github.com/terra-project/mantle-sdk/db/badger"
 )
 
 func main() {
@@ -49,12 +48,11 @@ func main() {
 		utils.GenesisDocFromFile(genesisPath),
 		account_txs.RegisterAccountTxs,
 		tx_infos.RegisterTxInfos,
-		txs.RegisterTxs,
 		blocks.RegisterBlocks,
 		cw20.RegisterCW20Transfers,
 	)
 
-	mantle.Server()
+	mantle.Server(1337)
 	mantle.Sync(app.SyncConfiguration{
 		TendermintEndpoint: endpoint,
 		SyncUntil:          syncUntil,

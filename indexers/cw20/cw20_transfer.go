@@ -4,8 +4,8 @@ import (
 	"encoding/base64"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	utils2 "github.com/terra-project/mantle-official/utils"
-	"github.com/terra-project/mantle/types"
-	"github.com/terra-project/mantle/utils"
+	"github.com/terra-project/mantle-sdk/types"
+	"github.com/terra-project/mantle-sdk/utils"
 	"reflect"
 )
 

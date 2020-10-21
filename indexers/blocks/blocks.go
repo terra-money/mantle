@@ -2,7 +2,7 @@ package blocks
 
 import (
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle/types"
+	"github.com/terra-project/mantle-sdk/types"
 	"reflect"
 )
 

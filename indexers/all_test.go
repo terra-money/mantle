@@ -6,10 +6,9 @@ import (
 	"github.com/terra-project/mantle-official/indexers/blocks"
 	"github.com/terra-project/mantle-official/indexers/cw20"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/test/fixtures"
 	"github.com/terra-project/mantle-official/utils"
-	"github.com/terra-project/mantle/test"
+	"github.com/terra-project/mantle-sdk/test"
 	"sync"
 	"testing"
 )
@@ -18,7 +17,6 @@ func TestAll(t *testing.T) {
 	simapp, accounts := fixtures.NewTestChain(
 		account_txs.RegisterAccountTxs,
 		tx_infos.RegisterTxInfos,
-		txs.RegisterTxs,
 		blocks.RegisterBlocks,
 		cw20.RegisterCW20Transfers,
 	)

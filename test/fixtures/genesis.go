@@ -3,9 +3,9 @@ package fixtures
 import (
 	"fmt"
 	"github.com/terra-project/mantle-compatibility/genesis"
-	"github.com/terra-project/mantle/app"
-	"github.com/terra-project/mantle/test"
-	"github.com/terra-project/mantle/types"
+	"github.com/terra-project/mantle-sdk/app"
+	"github.com/terra-project/mantle-sdk/test"
+	"github.com/terra-project/mantle-sdk/types"
 )
 
 var maxAccounts = 10

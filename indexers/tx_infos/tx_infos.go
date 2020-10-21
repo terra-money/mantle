@@ -1,13 +1,11 @@
 package tx_infos
 
 import (
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/tendermint/tendermint/crypto/tmhash"
 	lutils "github.com/terra-project/mantle-official/utils"
-	. "github.com/terra-project/mantle/types"
+	. "github.com/terra-project/mantle-sdk/types"
 	"reflect"
 	"time"
 )
@@ -84,14 +82,16 @@ func RegisterTxInfos(register Register) {
 
 func IndexTxInfos(q Query, c Commit) error {
 	request := new(struct {
-		BaseState struct {
+		BlockState struct {
 			Height int64
 			Block  struct {
 				Header struct {
 					Time string
 				}
+				Data struct {
+					Txs []Tx
+				}
 			}
-			Txs                []LazyTx
 			DeliverTxResponses []ResponseDeliverTx
 		}
 	})
@@ -101,19 +101,16 @@ func IndexTxInfos(q Query, c Commit) error {
 	}
 
 	// transform txs into mantleTx
-	txs := request.BaseState.Txs
-	txResults := request.BaseState.DeliverTxResponses
+	txs := request.BlockState.Block.Data.Txs
+	txResults := request.BlockState.DeliverTxResponses
 	var commitTarget = make(TxInfos, len(txs))
 
 	for txIndex, tx := range txs {
-		txBytes, txBytesErr := base64.StdEncoding.DecodeString(tx.TxString)
-		if txBytesErr != nil {
-			return fmt.Errorf("tx byte decode failed, err=%s", txBytesErr)
-		}
-		txHash := tmhash.Sum(txBytes)
+		txHash := tx.Hash()
 		txResult := txResults[txIndex]
-		txdoc := tx.Decode()
-		timeInUint64, _ := time.Parse(time.RFC3339, request.BaseState.Block.Header.Time)
+		txdoc, txdocErr := TxDecoder(tx)
+		if txdocErr != nil { return txdocErr }
+		timeInUint64, _ := time.Parse(time.RFC3339, request.BlockState.Block.Header.Time)
 
 		// log -> TxxInfoLog
 		rawLogParsed := new([]TxInfoLog)
@@ -167,13 +164,13 @@ func IndexTxInfos(q Query, c Commit) error {
 		}
 
 		commitTarget[txIndex] = TxInfo{
-			Height:       uint64(request.BaseState.Height),
+			Height:       uint64(request.BlockState.Height),
 			TxHash:       fmt.Sprintf("%X", txHash),
 			RawLog:       txResult.Log,
 			Logs:         *rawLogParsed,
 			GasWanted:    uint64(txResult.GasWanted),
 			GasUsed:      uint64(txResult.GasUsed),
-			Timestamp:    request.BaseState.Block.Header.Time,
+			Timestamp:    request.BlockState.Block.Header.Time,
 			TimestampUTC: uint64(timeInUint64.UnixNano()),
 			Events:       eventsParsed,
 			Code:         uint64(txResult.Code),

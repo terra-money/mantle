@@ -11,9 +11,8 @@ import (
 	"github.com/terra-project/core/x/staking"
 	"github.com/terra-project/core/x/wasm"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/indexers/txs"
 	"github.com/terra-project/mantle-official/utils"
-	"github.com/terra-project/mantle/types"
+	"github.com/terra-project/mantle-sdk/types"
 	"reflect"
 )
 
@@ -21,17 +20,19 @@ type AccountTx struct {
 	Account           string `model:"index"`
 	MsgType           string `model:"index"`
 	TxInfo            tx_infos.TxInfo
-	Tx                txs.MantleTx
 }
 
 type AccountTxs []AccountTx
 
 type request struct {
-	Txs       txs.Txs
 	TxInfos   tx_infos.TxInfos
-	BaseState struct {
+	BlockState struct {
 		Height int64
-		Txs    []types.LazyTx
+		Block struct {
+			Data struct {
+				Txs []types.Tx
+			}
+		}
 	}
 }
 
@@ -50,8 +51,11 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 
 	accountTxs := AccountTxs{}
 
-	for txIndex, tx := range req.BaseState.Txs {
-		txdoc := tx.Decode()
+	for txIndex, tx := range req.BlockState.Block.Data.Txs {
+		txdoc, err := types.TxDecoder(tx)
+		if err != nil {
+			return err
+		}
 
 		for _, msg := range txdoc.GetMsgs() {
 			var relatedAddresses []string
@@ -77,7 +81,6 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 					Account: addr,
 					MsgType: utils.MsgRouteAndTypeToString(msg.Route(), msg.Type()),
 					TxInfo:  req.TxInfos[txIndex],
-					Tx:      req.Txs[txIndex],
 				})
 			}
 		}

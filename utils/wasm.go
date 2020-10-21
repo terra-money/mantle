@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/terra-project/mantle/types"
+	"github.com/terra-project/mantle-sdk/types"
 	"io/ioutil"
 	"path/filepath"
 )
@@ -17,9 +17,9 @@ func GetWasmBytes(p string) (wasmBytes []byte) {
 }
 
 
-func GetContractAddressFromInstantiate(result types.BaseState) string {
+func GetContractAddressFromInstantiate(result types.BlockState) string {
 	var addr string
-	for _, event := range result.DeliverTxResponses[0].Events {
+	for _, event := range result.ResponseDeliverTx[0].Events {
 		switch event.Type {
 		case "instantiate_contract":
 			for _, attr := range event.Attributes {

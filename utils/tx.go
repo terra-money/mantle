@@ -1,9 +1,9 @@
 package utils
 
-import "github.com/terra-project/mantle/types"
+import "github.com/terra-project/mantle-sdk/types"
 
-func MustPass(result types.BaseState) types.BaseState {
-	for _, result := range result.DeliverTxResponses {
+func MustPass(result types.BlockState) types.BlockState {
+	for _, result := range result.ResponseDeliverTx {
 		if result.IsErr() || !result.IsOK() {
 			panic(result.Log)
 		}

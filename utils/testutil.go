@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/terra-project/mantle/test"
+	"github.com/terra-project/mantle-sdk/test"
 	"sync"
 )
 
