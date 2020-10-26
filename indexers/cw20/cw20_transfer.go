@@ -5,7 +5,6 @@ import (
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
 	utils2 "github.com/terra-project/mantle-official/utils"
 	"github.com/terra-project/mantle-sdk/types"
-	"github.com/terra-project/mantle-sdk/utils"
 	"reflect"
 )
 
@@ -58,7 +57,7 @@ func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 				ExecuteMsg string `json:"execute_msg"`
 			})
 
-			utils.MustUnmarshal([]byte(msg.Value), msgPayload)
+			utils2.MustUnmarshal([]byte(msg.Value), msgPayload)
 
 			var isValidExecuteMsg = !utils2.IsZero(msgPayload.Sender) && !utils2.IsZero(msgPayload.Contract) && !utils2.IsZero(msgPayload.ExecuteMsg)
 			if !isValidExecuteMsg {
@@ -77,7 +76,7 @@ func IndexCW20Transfers(query types.Query, commit types.Commit) error {
 				return decodeErr
 			}
 
-			utils.MustUnmarshal(decodedMsgExecuteContract, msgExecuteContract)
+			utils2.MustUnmarshal(decodedMsgExecuteContract, msgExecuteContract)
 
 			// skip if this executeMsg does NOT contain transfer
 			if utils2.IsZero(msgExecuteContract.Transfer) {

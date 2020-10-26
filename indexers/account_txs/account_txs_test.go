@@ -34,7 +34,7 @@ func TestAccountTxs(t *testing.T) {
 
 		wg.Wait()
 
-		_ = simapp.Inject(testBlock.ToBlock())
+		simapp.Inject(testBlock.ToBlock())
 	}
 
 	// inject cw20 token
@@ -65,7 +65,7 @@ func TestAccountTxs(t *testing.T) {
 	)).ToTx(owner)).ToBlock()))
 
 	// make transfer
-	_ = simapp.Inject(test.NewBlock().WithTx(test.NewTx().WithMsg(test.NewMsgExecuteContract(
+	_, _ = simapp.Inject(test.NewBlock().WithTx(test.NewTx().WithMsg(test.NewMsgExecuteContract(
 		owner.GetAddress(),
 		test.AccAddressFromBech32(tokenAddress),
 		[]byte(fmt.Sprintf(

@@ -39,7 +39,7 @@ func TestAll(t *testing.T) {
 
 		wg.Wait()
 
-		_ = simapp.Inject(testBlock.ToBlock())
+		simapp.Inject(testBlock.ToBlock())
 	}
 
 	for{}

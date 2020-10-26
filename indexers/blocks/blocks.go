@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-// Block is a handy alias to BaseState.Block,
+// Block is a handy alias to BlockState.Block,
 // where it only contains Header and Data.Txs
 type Block struct {
 	Height uint64
@@ -25,8 +25,8 @@ func RegisterBlocks(register types.Register) {
 
 func IndexBlocks(query types.Query, commit types.Commit) error {
 	queryBlock := new(struct {
-		BaseState struct {
-			Block types.Block
+		BlockState struct {
+			Block types.RawBlock
 		}
 		TxInfos tx_infos.TxInfos
 	})
@@ -37,8 +37,8 @@ func IndexBlocks(query types.Query, commit types.Commit) error {
 
 	//
 	var commitTarget = Block{}
-	commitTarget.Height = uint64(queryBlock.BaseState.Block.Header.Height)
-	commitTarget.Header = queryBlock.BaseState.Block.Header
+	commitTarget.Height = uint64(queryBlock.BlockState.Block.Header.Height)
+	commitTarget.Header = queryBlock.BlockState.Block.Header
 	commitTarget.Txs = queryBlock.TxInfos
 
 	var asSlice = Blocks{commitTarget}

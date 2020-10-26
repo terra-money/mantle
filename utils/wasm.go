@@ -17,7 +17,7 @@ func GetWasmBytes(p string) (wasmBytes []byte) {
 }
 
 
-func GetContractAddressFromInstantiate(result types.BlockState) string {
+func GetContractAddressFromInstantiate(result *types.BlockState, _ error) string {
 	var addr string
 	for _, event := range result.ResponseDeliverTx[0].Events {
 		switch event.Type {

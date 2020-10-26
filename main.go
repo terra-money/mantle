@@ -5,7 +5,6 @@ import (
 	"github.com/terra-project/mantle-official/indexers/blocks"
 	"github.com/terra-project/mantle-official/indexers/cw20"
 	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-sdk/utils"
 	"log"
 	"os"
 	"reflect"
@@ -15,6 +14,8 @@ import (
 
 	"github.com/terra-project/mantle-sdk/app"
 	"github.com/terra-project/mantle-sdk/db/badger"
+	tmtypes "github.com/tendermint/tendermint/types"
+
 )
 
 func main() {
@@ -43,9 +44,13 @@ func main() {
 	badgerdb := badger.NewBadgerDB(dbDir)
 	defer badgerdb.Close()
 
+	genesis, genesisErr := tmtypes.GenesisDocFromFile(genesisPath)
+	if genesisErr != nil {
+		panic(genesisErr)
+	}
 	mantle := app.NewMantle(
 		badgerdb,
-		utils.GenesisDocFromFile(genesisPath),
+		genesis,
 		account_txs.RegisterAccountTxs,
 		tx_infos.RegisterTxInfos,
 		blocks.RegisterBlocks,

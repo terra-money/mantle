@@ -86,13 +86,13 @@ func IndexTxInfos(q Query, c Commit) error {
 			Height int64
 			Block  struct {
 				Header struct {
-					Time string
+					Time time.Time
 				}
 				Data struct {
 					Txs []Tx
 				}
 			}
-			DeliverTxResponses []ResponseDeliverTx
+			ResponseDeliverTx []ResponseDeliverTx
 		}
 	})
 
@@ -102,7 +102,7 @@ func IndexTxInfos(q Query, c Commit) error {
 
 	// transform txs into mantleTx
 	txs := request.BlockState.Block.Data.Txs
-	txResults := request.BlockState.DeliverTxResponses
+	txResults := request.BlockState.ResponseDeliverTx
 	var commitTarget = make(TxInfos, len(txs))
 
 	for txIndex, tx := range txs {
@@ -110,7 +110,7 @@ func IndexTxInfos(q Query, c Commit) error {
 		txResult := txResults[txIndex]
 		txdoc, txdocErr := TxDecoder(tx)
 		if txdocErr != nil { return txdocErr }
-		timeInUint64, _ := time.Parse(time.RFC3339, request.BlockState.Block.Header.Time)
+		timeInUint64, _ := time.Parse(time.RFC3339, request.BlockState.Block.Header.Time.String())
 
 		// log -> TxxInfoLog
 		rawLogParsed := new([]TxInfoLog)
@@ -170,7 +170,7 @@ func IndexTxInfos(q Query, c Commit) error {
 			Logs:         *rawLogParsed,
 			GasWanted:    uint64(txResult.GasWanted),
 			GasUsed:      uint64(txResult.GasUsed),
-			Timestamp:    request.BlockState.Block.Header.Time,
+			Timestamp:    request.BlockState.Block.Header.Time.String(),
 			TimestampUTC: uint64(timeInUint64.UnixNano()),
 			Events:       eventsParsed,
 			Code:         uint64(txResult.Code),
