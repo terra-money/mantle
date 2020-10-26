@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	lutils "github.com/terra-project/mantle-official/utils"
+	lutils "github.com/terra-project/mantle/utils"
 	. "github.com/terra-project/mantle-sdk/types"
 	"reflect"
 	"time"

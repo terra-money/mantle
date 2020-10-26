@@ -10,8 +10,8 @@ import (
 	"github.com/terra-project/core/x/oracle"
 	"github.com/terra-project/core/x/staking"
 	"github.com/terra-project/core/x/wasm"
-	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/utils"
+	"github.com/terra-project/mantle/indexers/tx_infos"
+	"github.com/terra-project/mantle/utils"
 	"github.com/terra-project/mantle-sdk/types"
 	"reflect"
 )
