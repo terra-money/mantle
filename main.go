@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/terra-project/mantle-official/indexers/account_txs"
-	"github.com/terra-project/mantle-official/indexers/blocks"
-	"github.com/terra-project/mantle-official/indexers/cw20"
-	"github.com/terra-project/mantle-official/indexers/tx_infos"
+	"github.com/terra-project/mantle/indexers/account_txs"
+	"github.com/terra-project/mantle/indexers/blocks"
+	"github.com/terra-project/mantle/indexers/cw20"
+	"github.com/terra-project/mantle/indexers/tx_infos"
 	"log"
 	"os"
 	"reflect"

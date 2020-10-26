@@ -2,8 +2,8 @@ package cw20
 
 import (
 	"fmt"
-	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/test/fixtures"
+	"github.com/terra-project/mantle/indexers/tx_infos"
+	"github.com/terra-project/mantle/test/fixtures"
 	"github.com/terra-project/mantle-sdk/app"
 	"github.com/terra-project/mantle-sdk/test"
 	"github.com/terra-project/mantle-sdk/types"

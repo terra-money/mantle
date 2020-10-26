@@ -2,12 +2,12 @@ package indexers
 
 import (
 	"fmt"
-	"github.com/terra-project/mantle-official/indexers/account_txs"
-	"github.com/terra-project/mantle-official/indexers/blocks"
-	"github.com/terra-project/mantle-official/indexers/cw20"
-	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/test/fixtures"
-	"github.com/terra-project/mantle-official/utils"
+	"github.com/terra-project/mantle/indexers/account_txs"
+	"github.com/terra-project/mantle/indexers/blocks"
+	"github.com/terra-project/mantle/indexers/cw20"
+	"github.com/terra-project/mantle/indexers/tx_infos"
+	"github.com/terra-project/mantle/test/fixtures"
+	"github.com/terra-project/mantle/utils"
 	"github.com/terra-project/mantle-sdk/test"
 	"sync"
 	"testing"

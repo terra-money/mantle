@@ -2,9 +2,9 @@ package blocks
 
 import (
 	"fmt"
-	"github.com/terra-project/mantle-official/indexers/tx_infos"
-	"github.com/terra-project/mantle-official/test/fixtures"
-	"github.com/terra-project/mantle-official/utils"
+	"github.com/terra-project/mantle/indexers/tx_infos"
+	"github.com/terra-project/mantle/test/fixtures"
+	"github.com/terra-project/mantle/utils"
 	"github.com/terra-project/mantle-sdk/test"
 	"sync"
 	"testing"
