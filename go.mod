@@ -6,6 +6,6 @@ replace github.com/CosmWasm/go-cosmwasm => github.com/terra-project/go-cosmwasm 
 
 require (
 	github.com/iancoleman/strcase v0.1.2
-	github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4
-	github.com/terra-project/mantle-sdk v0.2.0
+	github.com/terra-project/mantle-compatibility v1.3.0-tequila-0004
+	github.com/terra-project/mantle-sdk v0.2.1
 )
