@@ -1,11 +1,23 @@
-FROM golang:alpine as builder
+FROM golang:1-buster as builder
 
-WORKDIR /app
+WORKDIR /go/src/github.com/terra-project/mantle
 
-COPY main.go ./
-COPY go.* ./
+COPY main.go main.go
+COPY indexers indexers
+COPY utils utils
+COPY go.mod go.mod
+COPY go.sum go.sum
 
-RUN apk add --no-cache git build-base
+RUN apt-get install git
 
-RUN GOSUMDB=off go mod download \
+RUN go mod download \
   && go build main.go
+
+FROM ubuntu:latest
+
+WORKDIR /root
+
+COPY docker/libgo_cosmwasm.so /lib/libgo_cosmwasm.so
+COPY --from=builder /go/src/github.com/terra-project/mantle/main /usr/local/bin/mantle
+
+ENTRYPOINT [ "mantle" ]
