@@ -3,9 +3,8 @@ package tx_infos
 import (
 	"encoding/json"
 	"fmt"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	lutils "github.com/terra-project/mantle/utils"
 	. "github.com/terra-project/mantle-sdk/types"
+	lutils "github.com/terra-project/mantle/utils"
 	"reflect"
 	"time"
 )
@@ -46,8 +45,13 @@ type TxInfoStdTxSignaturePubKey struct {
 }
 
 type TxInfoStdFee struct {
-	Amount sdk.Coins `json:"amount" yaml:"amount"`
+	Amount []TxInfoStdFeeAmount
 	Gas    uint64
+}
+
+type TxInfoStdFeeAmount struct {
+	Denom  string
+	Amount string
 }
 
 type TxInfoLog struct {
@@ -109,7 +113,9 @@ func IndexTxInfos(q Query, c Commit) error {
 		txHash := tx.Hash()
 		txResult := txResults[txIndex]
 		txdoc, txdocErr := TxDecoder(tx)
-		if txdocErr != nil { return txdocErr }
+		if txdocErr != nil {
+			return txdocErr
+		}
 		timeInUint64, _ := time.Parse(time.RFC3339, request.BlockState.Block.Header.Time.String())
 
 		// log -> TxxInfoLog
@@ -146,8 +152,15 @@ func IndexTxInfos(q Query, c Commit) error {
 		}
 
 		// txdoc.Fee ->
+		var feeAmount = make([]TxInfoStdFeeAmount, len(txdoc.Fee.Amount))
+		for amountIndex, amount := range txdoc.Fee.Amount {
+			feeAmount[amountIndex] = TxInfoStdFeeAmount{
+				Denom:  amount.Denom,
+				Amount: amount.Amount.String(),
+			}
+		}
 		var fee = TxInfoStdFee{
-			Amount: txdoc.Fee.Amount,
+			Amount: feeAmount,
 			Gas:    txdoc.Fee.Gas,
 		}
 
