@@ -296,6 +296,8 @@ github.com/golang/protobuf v1.4.2/go.mod h1:oDoupMAO8OvCJWAcko0GGGIgR6R6ocIYbsSw
 github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
 github.com/golang/snappy v0.0.1 h1:Qgr9rKW7uDUkrbSmQeiDsGa8SjGyCOGtuasMWwvp2P4=
 github.com/golang/snappy v0.0.1/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
+github.com/golang/snappy v0.0.2 h1:aeE13tS0IiQgFjYdoL8qN3K1N2bXXtI6Vi51/y7BpMw=
+github.com/golang/snappy v0.0.2/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
 github.com/google/btree v0.0.0-20180813153112-4030bb1f1f0c/go.mod h1:lNA+9X1NB3Zf8V7Ke586lFgjr2dZNuvo3lPJSGZ5JPQ=
 github.com/google/btree v1.0.0 h1:0udJVsspx3VBr5FwtLhQQtuAsVc79tTq0ocGIPAU6qo=
 github.com/google/btree v1.0.0/go.mod h1:lNA+9X1NB3Zf8V7Ke586lFgjr2dZNuvo3lPJSGZ5JPQ=
@@ -632,8 +634,6 @@ github.com/terra-project/go-cosmwasm v0.10.1-terra/go.mod h1:gAFCwllx97ejI+m9SqJ
 github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4/go.mod h1:BkZXln5cCY8jvHFEyKK2vU/e78Ty3Inlt9yWlqJpfhc=
 github.com/terra-project/mantle-compatibility v1.3.0-tequila-0004 h1:/AVB5dVvTzaFZtzRMRf7Ot5EU/DCzFez2ty+gG9GlDk=
 github.com/terra-project/mantle-compatibility v1.3.0-tequila-0004/go.mod h1:466T/aTCAKIuFwPANPI5lSqZRqnrkj+aG6TRfhJooTY=
-github.com/terra-project/mantle-sdk v0.2.2 h1:H+GIURURNup0GmojPgB/4IwsRZTs8MI8LPjBwsV3Zek=
-github.com/terra-project/mantle-sdk v0.2.2/go.mod h1:8Tdi92fG+sVjVlSw9zB/aBzf5FOy8LzgSXwdBPCSvYE=
 github.com/tidwall/pretty v1.0.0 h1:HsD+QiTn7sK6flMKIvNmpqz1qrpP3Ps6jOKIKMooyg4=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
