@@ -44,20 +44,30 @@ func RegisterAccountTxs(register types.Register) {
 }
 
 func IndexAccountTx(query types.Query, commit types.Commit) error {
+	// make request
 	req := request{}
 	if err := query(&req, nil); err != nil {
 		return err
 	}
 
+	// result
 	accountTxs := AccountTxs{}
 
+	// for all txs
 	for txIndex, tx := range req.BlockState.Block.Data.Txs {
+
+		// decode amino-encoded byte string into a tx document
 		txdoc, err := types.TxDecoder(tx)
 		if err != nil {
 			return err
 		}
 
+		// for all messages
 		for _, msg := range txdoc.GetMsgs() {
+
+			// get all relevant addresses from this msg
+			// note that the set of relevant addresses may be in multiples
+			// i.e. multisend
 			var relatedAddresses []string
 			if relatedAddresses = getAddressFromMsg(msg); len(relatedAddresses) == 0 {
 				continue
@@ -76,6 +86,8 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 				}
 			}
 
+			// for all relevant addresses,
+			// save an AccountTx{} entity, and append them in accountTxs (result array we made before)
 			for _, addr := range relatedAddresses {
 				accountTxs = append(accountTxs, AccountTx{
 					Account: addr,
@@ -86,6 +98,7 @@ func IndexAccountTx(query types.Query, commit types.Commit) error {
 		}
 	}
 
+	// commit
 	if commitErr := commit(accountTxs); commitErr != nil {
 		return commitErr
 	}
