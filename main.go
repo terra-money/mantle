@@ -6,16 +6,16 @@ import (
 	"github.com/terra-project/mantle/indexers/cw20"
 	"github.com/terra-project/mantle/indexers/tx_infos"
 	"log"
+	"net/http"
 	"os"
 	"reflect"
 	"strconv"
 
 	_ "net/http/pprof"
 
+	tmtypes "github.com/tendermint/tendermint/types"
 	"github.com/terra-project/mantle-sdk/app"
 	"github.com/terra-project/mantle-sdk/db/badger"
-	tmtypes "github.com/tendermint/tendermint/types"
-
 )
 
 func main() {
