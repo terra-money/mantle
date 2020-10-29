@@ -6,7 +6,6 @@ import (
 	"github.com/terra-project/mantle/indexers/cw20"
 	"github.com/terra-project/mantle/indexers/tx_infos"
 	"log"
-	"net/http"
 	"os"
 	"reflect"
 	"strconv"
