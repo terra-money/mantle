@@ -15,7 +15,7 @@ RUN go mod download \
 
 FROM ubuntu:latest
 
-WORKDIR /root
+WORKDIR /app
 
 COPY docker/libgo_cosmwasm.so /lib/libgo_cosmwasm.so
 COPY --from=builder /go/src/github.com/terra-project/mantle/main /usr/local/bin/mantle
