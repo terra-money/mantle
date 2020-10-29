@@ -626,11 +626,13 @@ github.com/tendermint/tm-db v0.5.1 h1:H9HDq8UEA7Eeg13kdYckkgwwkQLBnJGgX4PgLJRhie
 github.com/tendermint/tm-db v0.5.1/go.mod h1:g92zWjHpCYlEvQXvy9M168Su8V1IBEeawpXVVBaK4f4=
 github.com/terra-project/core v0.4.0-rc.4 h1:6ZK9KyUCRWw5kQmcBmTbKy6RZ8UU2ew9T3NrlH4jS1U=
 github.com/terra-project/core v0.4.0-rc.4/go.mod h1:QoddSVukyuI5qM0rFp7xvKjTn/aoK3D177MUt1V7YXM=
+github.com/terra-project/core v0.4.0 h1:oKz5cK4a93ZwsnphjnTttsghRGEISnaB6W2jgra727A=
+github.com/terra-project/core v0.4.0/go.mod h1:QoddSVukyuI5qM0rFp7xvKjTn/aoK3D177MUt1V7YXM=
 github.com/terra-project/go-cosmwasm v0.10.1-terra h1:3yvESyqndOoJKmmFyGKfQy7rLg2Gz4ULwwoCi4fDqAw=
 github.com/terra-project/go-cosmwasm v0.10.1-terra/go.mod h1:gAFCwllx97ejI+m9SqJQrmd2SBW7HA0fOjvWWJjM2uc=
 github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4/go.mod h1:BkZXln5cCY8jvHFEyKK2vU/e78Ty3Inlt9yWlqJpfhc=
-github.com/terra-project/mantle-compatibility v1.3.2-tequila-0004 h1:qjheOCcTeK3tqAsy8E/GJVbyv3XaoXj4o++iqm+Z2tU=
-github.com/terra-project/mantle-compatibility v1.3.2-tequila-0004/go.mod h1:BkZXln5cCY8jvHFEyKK2vU/e78Ty3Inlt9yWlqJpfhc=
+github.com/terra-project/mantle-compatibility v1.3.3-columbus-4 h1:k4XfOkfqDm0ntpKPH+NLOSOnu93p5V3LKKS16YPai+Y=
+github.com/terra-project/mantle-compatibility v1.3.3-columbus-4/go.mod h1:5+8qiIpoACdQ2snYUjwDLvhzf/sRZU+ZgVlMmQE+itI=
 github.com/terra-project/mantle-sdk v0.2.3 h1:JkNUfNWnt9WlYjF6VD3ppSIl9oBQ/khEM5jwRW4St8A=
 github.com/terra-project/mantle-sdk v0.2.3/go.mod h1:8Tdi92fG+sVjVlSw9zB/aBzf5FOy8LzgSXwdBPCSvYE=
 github.com/tidwall/pretty v1.0.0 h1:HsD+QiTn7sK6flMKIvNmpqz1qrpP3Ps6jOKIKMooyg4=
