@@ -47,18 +47,21 @@ func main() {
 	defer badgerdb.Close()
 
 	genesis, genesisErr := tmtypes.GenesisDocFromFile(genesisPath)
+	if genesisErr != nil {
+		panic(genesisErr)
+	}
 
 	// check shasum
+	//
+	// file is definitely available once we come to this line,
+	// skip error check
 	jsonBlob, _ := ioutil.ReadFile(genesisPath)
 	shasum := sha1.New()
 	shasum.Write(jsonBlob)
 	sum := hex.EncodeToString(shasum.Sum(nil))
-	
+
 	log.Printf("genesis shasum(sha1)=%v", sum)
 
-	if genesisErr != nil {
-		panic(genesisErr)
-	}
 	mantle := app.NewMantle(
 		badgerdb,
 		genesis,
