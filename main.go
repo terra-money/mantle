@@ -1,10 +1,13 @@
 package main
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
 	"github.com/terra-project/mantle/indexers/account_txs"
 	"github.com/terra-project/mantle/indexers/blocks"
 	"github.com/terra-project/mantle/indexers/cw20"
 	"github.com/terra-project/mantle/indexers/tx_infos"
+	"io/ioutil"
 	"log"
 	"os"
 	"reflect"
@@ -47,6 +50,18 @@ func main() {
 	if genesisErr != nil {
 		panic(genesisErr)
 	}
+
+	// check shasum
+	//
+	// file is definitely available once we come to this line,
+	// skip error check
+	jsonBlob, _ := ioutil.ReadFile(genesisPath)
+	shasum := sha1.New()
+	shasum.Write(jsonBlob)
+	sum := hex.EncodeToString(shasum.Sum(nil))
+
+	log.Printf("genesis shasum(sha1)=%v", sum)
+
 	mantle := app.NewMantle(
 		badgerdb,
 		genesis,
