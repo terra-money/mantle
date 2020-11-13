@@ -88,6 +88,11 @@ func main() {
 	mantle.Sync(app.SyncConfiguration{
 		TendermintEndpoint: endpoint,
 		SyncUntil:          syncUntil,
+		Reconnect:          true,
+		OnWSError: func(err error) {
+			sentry.CaptureException(err)
+			sentry.Flush(time.Second)
+		},
 	})
 }
 
