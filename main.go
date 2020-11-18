@@ -19,7 +19,7 @@ import (
 
 	tmtypes "github.com/tendermint/tendermint/types"
 	"github.com/terra-project/mantle-sdk/app"
-	"github.com/terra-project/mantle-sdk/db/badger"
+	"github.com/terra-project/mantle-sdk/db/leveldb"
 )
 
 func main() {
@@ -46,6 +46,15 @@ func main() {
 
 		return uint64(syncUntil)
 	}()
+	var graphqlPort = func() int {
+		graphqlPortString := os.Getenv("PORT")
+		graphqlPort, err := strconv.Atoi(graphqlPortString)
+		if err != nil {
+			return 1337
+		}
+
+		return graphqlPort
+	}()
 
 	// init sentry
 	if sentryDsn != "" {
@@ -62,15 +71,15 @@ func main() {
 		syncUntil,
 	)
 
-	badgerdb := badger.NewBadgerDB(dbDir)
-	defer badgerdb.Close()
+	db := leveldb.NewLevelDB(dbDir)
+	defer db.Close()
 
 	genesis, genesisErr := tmtypes.GenesisDocFromFile(genesisPath)
 	if genesisErr != nil {
 		panic(genesisErr)
 	}
 	mantle := app.NewMantle(
-		badgerdb,
+		db,
 		genesis,
 		account_txs.RegisterAccountTxs,
 		tx_infos.RegisterTxInfos,
@@ -84,7 +93,7 @@ func main() {
 		}()
 	}
 
-	mantle.Server(1337)
+	mantle.Server(graphqlPort)
 	mantle.Sync(app.SyncConfiguration{
 		TendermintEndpoint: endpoint,
 		SyncUntil:          syncUntil,
