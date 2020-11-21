@@ -705,8 +705,8 @@ github.com/terra-project/go-cosmwasm v0.10.3 h1:fRLqM3R9iHKCsdGvWQALnRToDbb1jsPp
 github.com/terra-project/go-cosmwasm v0.10.3/go.mod h1:gAFCwllx97ejI+m9SqJQrmd2SBW7HA0fOjvWWJjM2uc=
 github.com/terra-project/mantle-compatibility v1.4.0-columbus-4 h1:flDEohgp+XGvsMMJQZp85Vyg7Jzf0mss2YUuKPviJWo=
 github.com/terra-project/mantle-compatibility v1.4.0-columbus-4/go.mod h1:jvGUAEnv36SVDYzYwR0KnAB2UO/EV9oSkc45g2ud5Z4=
-github.com/terra-project/mantle-compatibility v1.5.0-columbus-4 h1:0JiBu/UwkNs74AAFFxvCk88uC+xSG7ZXCqsRFcu34ks=
-github.com/terra-project/mantle-compatibility v1.5.0-columbus-4/go.mod h1:jvGUAEnv36SVDYzYwR0KnAB2UO/EV9oSkc45g2ud5Z4=
+github.com/terra-project/mantle-compatibility v1.5.1-columbus-4 h1:f8gYi3UjF7IrtrakcV77OaSJlEjdwN/kyVYmEnGcM+4=
+github.com/terra-project/mantle-compatibility v1.5.1-columbus-4/go.mod h1:9DaqmOFQfNYoYkX7sw2waNCc/7AzPNDlF5cuU4ZO7To=
 github.com/terra-project/mantle-sdk v0.2.12 h1:QzPgrSIkLqXbJM2hExeEorryYl0RiMCCwSpblf48MI8=
 github.com/terra-project/mantle-sdk v0.2.12/go.mod h1:bJeZ2L6ppVeeR7ScgDcJ6MD9lsi+WLgzAKIajiOKQlk=
 github.com/tidwall/pretty v1.0.0 h1:HsD+QiTn7sK6flMKIvNmpqz1qrpP3Ps6jOKIKMooyg4=
