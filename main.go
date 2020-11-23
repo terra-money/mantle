@@ -72,7 +72,11 @@ func main() {
 	)
 
 	db := leveldb.NewLevelDB(dbDir)
-	defer db.Close()
+	defer func() {
+		if closeErr := db.Close(); closeErr != nil {
+			fmt.Println(closeErr)
+		}
+	}()
 
 	genesis, genesisErr := tmtypes.GenesisDocFromFile(genesisPath)
 	if genesisErr != nil {
