@@ -3,16 +3,17 @@ package tx_infos
 import (
 	"encoding/json"
 	"fmt"
-	. "github.com/terra-project/mantle-sdk/types"
-	lutils "github.com/terra-project/mantle/utils"
 	"reflect"
 	"time"
+
+	. "github.com/terra-project/mantle-sdk/types"
+	lutils "github.com/terra-project/mantle/utils"
 )
 
 // mantle-specific tx type
 type TxInfo struct {
 	Height       uint64 // already indexed
-	TxHash       string `model:"index"`
+	TxHash       string `model:"index,primary"`
 	RawLog       string
 	Logs         []TxInfoLog
 	GasWanted    uint64
@@ -116,7 +117,7 @@ func IndexTxInfos(q Query, c Commit) error {
 		if txdocErr != nil {
 			return txdocErr
 		}
-		timeInUint64, _ := time.Parse(time.RFC3339, request.BlockState.Block.Header.Time.String())
+		timeInUint64 := uint64(request.BlockState.Block.Header.Time.Unix())
 
 		// log -> TxxInfoLog
 		rawLogParsed := new([]TxInfoLog)
@@ -184,7 +185,7 @@ func IndexTxInfos(q Query, c Commit) error {
 			GasWanted:    uint64(txResult.GasWanted),
 			GasUsed:      uint64(txResult.GasUsed),
 			Timestamp:    request.BlockState.Block.Header.Time.String(),
-			TimestampUTC: uint64(timeInUint64.UnixNano()),
+			TimestampUTC: timeInUint64,
 			Events:       eventsParsed,
 			Code:         uint64(txResult.Code),
 			Tx: TxInfoStdTx{
