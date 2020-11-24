@@ -63,8 +63,6 @@ func main() {
 		defer sentry.Flush(time.Second * 2)
 	}
 
-	viper.Set("home", dbDir)
-
 	// init mantle
 	log.Printf(
 		"[mantle] initializing, dbDir=%s, genesisPath=%s, endpoint=%s, syncUntil=%d",
@@ -74,6 +72,8 @@ func main() {
 		syncUntil,
 	)
 
+	// Wasm keeper will read home variable from viper and create $home/data/wasm directory
+	viper.Set("home", dbDir)
 	db := leveldb.NewLevelDB(dbDir)
 	defer func() {
 		if closeErr := db.Close(); closeErr != nil {
