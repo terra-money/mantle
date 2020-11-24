@@ -8,6 +8,7 @@ require (
 	github.com/cosmos/cosmos-sdk v0.39.1
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/iancoleman/strcase v0.1.2
+	github.com/spf13/viper v1.7.0
 	github.com/tendermint/tendermint v0.33.7
 	github.com/terra-project/core v0.4.1
 	github.com/terra-project/mantle-compatibility v1.5.2-columbus-4

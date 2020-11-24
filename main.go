@@ -10,6 +10,7 @@ import (
 	"time"
 
 	sentry "github.com/getsentry/sentry-go"
+	"github.com/spf13/viper"
 	"github.com/terra-project/mantle/indexers/account_txs"
 	"github.com/terra-project/mantle/indexers/blocks"
 	"github.com/terra-project/mantle/indexers/cw20"
@@ -61,6 +62,8 @@ func main() {
 		initSentry(sentryDsn)
 		defer sentry.Flush(time.Second * 2)
 	}
+
+	viper.Set("home", dbDir)
 
 	// init mantle
 	log.Printf(
