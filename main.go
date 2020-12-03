@@ -1,7 +1,10 @@
 package main
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -9,12 +12,13 @@ import (
 	"strconv"
 	"time"
 
-	sentry "github.com/getsentry/sentry-go"
-	"github.com/spf13/viper"
 	"github.com/terra-project/mantle/indexers/account_txs"
 	"github.com/terra-project/mantle/indexers/blocks"
 	"github.com/terra-project/mantle/indexers/cw20"
 	"github.com/terra-project/mantle/indexers/tx_infos"
+
+	sentry "github.com/getsentry/sentry-go"
+	"github.com/spf13/viper"
 
 	_ "net/http/pprof"
 
@@ -85,6 +89,18 @@ func main() {
 	if genesisErr != nil {
 		panic(genesisErr)
 	}
+
+	// check shasum
+	//
+	// file is definitely available once we come to this line,
+	// skip error check
+	jsonBlob, _ := ioutil.ReadFile(genesisPath)
+	shasum := sha1.New()
+	shasum.Write(jsonBlob)
+	sum := hex.EncodeToString(shasum.Sum(nil))
+
+	log.Printf("genesis shasum(sha1)=%v", sum)
+
 	mantle := app.NewMantle(
 		db,
 		genesis,
