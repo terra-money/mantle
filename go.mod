@@ -12,5 +12,5 @@ require (
 	github.com/tendermint/tendermint v0.33.7
 	github.com/terra-project/core v0.4.1
 	github.com/terra-project/mantle-compatibility v1.5.2-columbus-4
-	github.com/terra-project/mantle-sdk v0.3.2
+	github.com/terra-project/mantle-sdk v0.3.3
 )
