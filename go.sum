@@ -699,8 +699,8 @@ github.com/terra-project/go-cosmwasm v0.10.3 h1:fRLqM3R9iHKCsdGvWQALnRToDbb1jsPp
 github.com/terra-project/go-cosmwasm v0.10.3/go.mod h1:gAFCwllx97ejI+m9SqJQrmd2SBW7HA0fOjvWWJjM2uc=
 github.com/terra-project/mantle-compatibility v1.5.2-columbus-4 h1:hLNUIIg6Pmdx0knjxXT4xjSLoCxZj9soHwYP3P7rMSM=
 github.com/terra-project/mantle-compatibility v1.5.2-columbus-4/go.mod h1:B/8TUpnOlWOjVi9xnXwXxG4llumiZk0c48myYHvwxwQ=
-github.com/terra-project/mantle-sdk v0.3.2 h1:4+BXoDo5Gfk/Ri/Wa2HjqwWdJHOKnaQ/E2z3WhvhCms=
-github.com/terra-project/mantle-sdk v0.3.2/go.mod h1:VVaDqk9ovT4iKIJ08p65QqSCZpjJvLIzDXc9ucNg9Zg=
+github.com/terra-project/mantle-sdk v0.3.4 h1:K0dwWJHGpEKodIEvtfqORiPoeefOQ/JcwjGOAYxwAgw=
+github.com/terra-project/mantle-sdk v0.3.4/go.mod h1:VVaDqk9ovT4iKIJ08p65QqSCZpjJvLIzDXc9ucNg9Zg=
 github.com/tidwall/pretty v1.0.0 h1:HsD+QiTn7sK6flMKIvNmpqz1qrpP3Ps6jOKIKMooyg4=
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
