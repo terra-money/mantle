@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/terra-project/mantle/indexers/account_txs"
+//	"github.com/terra-project/mantle/indexers/account_txs"
 	"github.com/terra-project/mantle/indexers/blocks"
 	"github.com/terra-project/mantle/indexers/cw20"
 	"github.com/terra-project/mantle/indexers/tx_infos"
@@ -104,7 +104,7 @@ func main() {
 	mantle := app.NewMantle(
 		db,
 		genesis,
-		account_txs.RegisterAccountTxs,
+//		account_txs.RegisterAccountTxs,
 		tx_infos.RegisterTxInfos,
 		blocks.RegisterBlocks,
 		cw20.RegisterCW20Transfers,
