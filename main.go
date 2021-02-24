@@ -60,6 +60,15 @@ func main() {
 
 		return graphqlPort
 	}()
+	var lcdPort = func() int {
+		lcdPortSetting := os.Getenv("LCD_PORT")
+		lcdPort, err := strconv.Atoi(lcdPortSetting)
+		if err != nil {
+			return 1317
+		}
+
+		return lcdPort
+	}()
 
 	// init sentry
 	if sentryDsn != "" {
@@ -117,6 +126,7 @@ func main() {
 	}
 
 	mantle.Server(graphqlPort)
+	mantle.LCDServer(lcdPort)
 	mantle.Sync(app.SyncConfiguration{
 		TendermintEndpoint: endpoint,
 		SyncUntil:          syncUntil,
