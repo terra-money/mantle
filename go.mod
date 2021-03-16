@@ -2,7 +2,9 @@ module github.com/terra-project/mantle
 
 go 1.14
 
-replace github.com/CosmWasm/go-cosmwasm => github.com/terra-project/go-cosmwasm v0.10.4
+replace github.com/CosmWasm/go-cosmwasm => github.com/terra-project/go-cosmwasm v0.10.5
+
+replace github.com/cosmos/cosmos-sdk => github.com/terra-project/cosmos-sdk v0.39.2-public.5
 
 require (
 	github.com/cosmos/cosmos-sdk v0.39.2
