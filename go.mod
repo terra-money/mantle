@@ -12,6 +12,6 @@ require (
 	github.com/iancoleman/strcase v0.1.2
 	github.com/spf13/viper v1.7.0
 	github.com/tendermint/tendermint v0.33.9
-	github.com/terra-project/core v0.4.2
+	github.com/terra-project/core v0.4.3-0.20210311085928-3a5c3ed1df40
 	github.com/terra-project/mantle-sdk v0.3.9
 )

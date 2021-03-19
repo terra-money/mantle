@@ -10,22 +10,6 @@ import (
 	lutils "github.com/terra-project/mantle/utils"
 )
 
-type JSONScalar string
-type JSONScalarCustomMarshaler func(originalData interface{}, data []byte) []byte
-
-func NewJSONScalar(data interface{}, customMarshaller JSONScalarCustomMarshaler) JSONScalar {
-	bz, bzErr := json.Marshal(data)
-	if bzErr != nil {
-		panic(bzErr)
-	}
-
-	if customMarshaller != nil {
-		bz = customMarshaller(data, bz)
-	}
-
-	return JSONScalar(bz)
-}
-
 // mantle-specific tx type
 type TxInfo struct {
 	Height       uint64 // already indexed

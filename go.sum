@@ -688,6 +688,8 @@ github.com/tendermint/tm-db v0.5.2/go.mod h1:VrPTx04QJhQ9d8TFUTc2GpPBvBf/U9vIdBI
 github.com/terra-project/core v0.4.1/go.mod h1:kPBkaYEsdH73eMITy+vWQRE7aqMi4BvjnqAcIpxYVh4=
 github.com/terra-project/core v0.4.2 h1:+7NxCtg8WV26ueTxgkP8tQJ070eJpo+dj/wyAknBr+0=
 github.com/terra-project/core v0.4.2/go.mod h1:U8uN91QNHhKiCMRZtPpvQ637IJt2udDjhzIO3rUhUqE=
+github.com/terra-project/core v0.4.3-0.20210311085928-3a5c3ed1df40 h1:OXY9FfI4m5TYm4mzPzZk5//lPluiSjlJxaz5+4kPXqs=
+github.com/terra-project/core v0.4.3-0.20210311085928-3a5c3ed1df40/go.mod h1:Gs8EvpD0AAMWJGEOa7XkGmeeBxqPf6Y1IaEJE5C/CTU=
 github.com/terra-project/cosmos-sdk v0.39.2-public.5 h1:+98q3uhSnrOu15ShzKkx6EfkueetJ1h57RXcYm+93Oc=
 github.com/terra-project/cosmos-sdk v0.39.2-public.5/go.mod h1:VNUluciWBFj2vkhpMcp8rYZL/kCw0FtNc7SseUjE1KM=
 github.com/terra-project/go-cosmwasm v0.10.5 h1:SIS28GRnEQfRRJKfWy21JLe4vkoWNlFpj+bL8CDb5/M=
