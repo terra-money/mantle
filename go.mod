@@ -13,5 +13,5 @@ require (
 	github.com/spf13/viper v1.7.0
 	github.com/tendermint/tendermint v0.33.9
 	github.com/terra-project/core v0.4.6-0.20210408065940-14f6b52b7624
-	github.com/terra-project/mantle-sdk v0.3.9
+	github.com/terra-project/mantle-sdk v0.3.11
 )
