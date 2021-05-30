@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/terra-project/mantle-sdk/types"
+	"github.com/terra-money/mantle-sdk/types"
 	"io/ioutil"
 	"path/filepath"
 )
@@ -15,7 +15,6 @@ func GetWasmBytes(p string) (wasmBytes []byte) {
 
 	return
 }
-
 
 func GetContractAddressFromInstantiate(result *types.BlockState, _ error) string {
 	var addr string

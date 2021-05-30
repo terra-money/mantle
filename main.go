@@ -12,10 +12,10 @@ import (
 	"strconv"
 	"time"
 
-	//	"github.com/terra-project/mantle/indexers/account_txs"
-	"github.com/terra-project/mantle/indexers/blocks"
-	"github.com/terra-project/mantle/indexers/cw20"
-	"github.com/terra-project/mantle/indexers/tx_infos"
+	//	"github.com/terra-money/mantle/indexers/account_txs"
+	"github.com/terra-money/mantle/indexers/blocks"
+	"github.com/terra-money/mantle/indexers/cw20"
+	"github.com/terra-money/mantle/indexers/tx_infos"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/spf13/viper"
@@ -23,8 +23,8 @@ import (
 	_ "net/http/pprof"
 
 	tmtypes "github.com/tendermint/tendermint/types"
-	"github.com/terra-project/mantle-sdk/app"
-	"github.com/terra-project/mantle-sdk/db/leveldb"
+	"github.com/terra-money/mantle-sdk/app"
+	"github.com/terra-money/mantle-sdk/db/leveldb"
 )
 
 func main() {

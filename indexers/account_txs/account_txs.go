@@ -4,31 +4,31 @@ import (
 	"encoding/json"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/terra-project/core/x/bank"
-	"github.com/terra-project/core/x/gov"
-	"github.com/terra-project/core/x/market"
-	"github.com/terra-project/core/x/oracle"
-	"github.com/terra-project/core/x/staking"
-	"github.com/terra-project/core/x/wasm"
-	"github.com/terra-project/mantle/indexers/tx_infos"
-	"github.com/terra-project/mantle/utils"
-	"github.com/terra-project/mantle-sdk/types"
+	"github.com/terra-money/core/x/bank"
+	"github.com/terra-money/core/x/gov"
+	"github.com/terra-money/core/x/market"
+	"github.com/terra-money/core/x/oracle"
+	"github.com/terra-money/core/x/staking"
+	"github.com/terra-money/core/x/wasm"
+	"github.com/terra-money/mantle-sdk/types"
+	"github.com/terra-money/mantle/indexers/tx_infos"
+	"github.com/terra-money/mantle/utils"
 	"reflect"
 )
 
 type AccountTx struct {
-	Account           string `model:"index"`
-	MsgType           string `model:"index"`
-	TxInfo            tx_infos.TxInfo
+	Account string `model:"index"`
+	MsgType string `model:"index"`
+	TxInfo  tx_infos.TxInfo
 }
 
 type AccountTxs []AccountTx
 
 type request struct {
-	TxInfos   tx_infos.TxInfos
+	TxInfos    tx_infos.TxInfos
 	BlockState struct {
 		Height int64
-		Block struct {
+		Block  struct {
 			Data struct {
 				Txs []types.Tx
 			}

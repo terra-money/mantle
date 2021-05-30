@@ -2,7 +2,7 @@
 
 > 🚧 Under heavy construction! 🚧
 
-This repository contains official indexers built on [mantle-sdk](https://github.com/terra-project/mantle-sdk).
+This repository contains official indexers built on [mantle-sdk](https://github.com/terra-money/mantle-sdk).
 
 ## Installation and run
 
@@ -11,7 +11,7 @@ This repository contains official indexers built on [mantle-sdk](https://github.
 In order to run an instance of mantle, 
 
 ```sh
-git clone https://github.com/terra-project/mantle.git
+git clone https://github.com/terra-money/mantle.git
 cd mantle
 go mod download
 # then, follow instructions
@@ -20,9 +20,9 @@ go mod download
 ### Dependencies
 
 `mantle` depends on 3 modules:
-- [terra-project/core](https://github.com/terra-project/core): official terra network repository.
-- [terra-project/mantle-sdk](https://github.com/terra-project/mantle-sdk): official `mantle-sdk`.
-- [terra-project/mantle-compatibility](https://:github.com/terra-project/mantle-compatibility): compatibility provider for mantle-sdk.
+- [terra-money/core](https://github.com/terra-money/core): official terra network repository.
+- [terra-money/mantle-sdk](https://github.com/terra-money/mantle-sdk): official `mantle-sdk`.
+- [terra-money/mantle-compatibility](https://:github.com/terra-money/mantle-compatibility): compatibility provider for mantle-sdk.
 
 Versions of these packages need to adjusted in `go.mod` file to match the version of the network you are trying to index.
 
@@ -32,23 +32,23 @@ Versions of these packages need to adjusted in `go.mod` file to match the versio
 
 > Unlisted networks are to be supported in the future.
 
-#### terra-project/core
+#### terra-money/core
 
 `core` version **MUST** match with the network version you're trying to index. Fix core's version in `go.mod` file accordingly.
 
-- columbus-3: github.com/terra-project/core v0.3.7
-- columbus-4: github.com/terra-project/core v0.4.0
-- tequila-4: github.com/terra-project/core v0.4.0-rc.5
+- columbus-3: github.com/terra-money/core v0.3.7
+- columbus-4: github.com/terra-money/core v0.4.0
+- tequila-4: github.com/terra-money/core v0.4.0-rc.5
 
-#### terra-project/compatibility
+#### terra-money/compatibility
 
 Adjust package version accordingly:
 
-- columbus-3: github.com/terra-project/mantle-compatibility v1.2.1-columbus-3
-- columbus-4: github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4
-- tequila-4: github.com/terra-project/mantle-compatibility v1.2.1-tequila-rc4
+- columbus-3: github.com/terra-money/mantle-compatibility v1.2.1-columbus-3
+- columbus-4: github.com/terra-money/mantle-compatibility v1.2.1-tequila-rc4
+- tequila-4: github.com/terra-money/mantle-compatibility v1.2.1-tequila-rc4
 
-#### terra-project/mantle
+#### terra-money/mantle
 
 We recommed using the latest version of mantle.
 

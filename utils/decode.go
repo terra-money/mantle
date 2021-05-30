@@ -3,7 +3,7 @@ package utils
 import (
 	"encoding/base64"
 	"encoding/json"
-	"github.com/terra-project/core/x/wasm"
+	"github.com/terra-money/core/x/wasm"
 	"reflect"
 )
 
@@ -45,6 +45,5 @@ func DecodeWasm(oMsg interface{}, data []byte) []byte {
 	default:
 		return data
 	}
-
 
 }

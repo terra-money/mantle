@@ -3,16 +3,17 @@ package indexers
 func noop() {
 
 }
+
 //
 // import (
 // 	"fmt"
-// 	"github.com/terra-project/mantle/indexers/account_txs"
-// 	"github.com/terra-project/mantle/indexers/blocks"
-// 	"github.com/terra-project/mantle/indexers/cw20"
-// 	"github.com/terra-project/mantle/indexers/tx_infos"
-// 	"github.com/terra-project/mantle/test/fixtures"
-// 	"github.com/terra-project/mantle/utils"
-// 	"github.com/terra-project/mantle-sdk/test"
+// 	"github.com/terra-money/mantle/indexers/account_txs"
+// 	"github.com/terra-money/mantle/indexers/blocks"
+// 	"github.com/terra-money/mantle/indexers/cw20"
+// 	"github.com/terra-money/mantle/indexers/tx_infos"
+// 	"github.com/terra-money/mantle/test/fixtures"
+// 	"github.com/terra-money/mantle/utils"
+// 	"github.com/terra-money/mantle-sdk/test"
 // 	"sync"
 // 	"testing"
 // )

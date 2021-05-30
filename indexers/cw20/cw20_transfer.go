@@ -2,9 +2,9 @@ package cw20
 
 import (
 	"encoding/base64"
-	"github.com/terra-project/mantle/indexers/tx_infos"
-	utils2 "github.com/terra-project/mantle/utils"
-	"github.com/terra-project/mantle-sdk/types"
+	"github.com/terra-money/mantle-sdk/types"
+	"github.com/terra-money/mantle/indexers/tx_infos"
+	utils2 "github.com/terra-money/mantle/utils"
 	"reflect"
 )
 

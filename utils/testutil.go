@@ -5,7 +5,7 @@ func goa() {
 }
 
 // import (
-// 	"github.com/terra-project/mantle-sdk/test"
+// 	"github.com/terra-money/mantle-sdk/test"
 // 	"sync"
 // )
 //

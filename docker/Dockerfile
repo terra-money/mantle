@@ -1,6 +1,6 @@
 FROM golang:1-buster as builder
 
-WORKDIR /go/src/github.com/terra-project/mantle
+WORKDIR /go/src/github.com/terra-money/mantle
 
 COPY main.go main.go
 COPY indexers indexers
@@ -18,6 +18,6 @@ FROM ubuntu:latest
 WORKDIR /app
 
 COPY docker/libgo_cosmwasm.so /lib/libgo_cosmwasm.so
-COPY --from=builder /go/src/github.com/terra-project/mantle/main /usr/local/bin/mantle
+COPY --from=builder /go/src/github.com/terra-money/mantle/main /usr/local/bin/mantle
 
 ENTRYPOINT [ "mantle" ]

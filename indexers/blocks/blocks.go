@@ -1,8 +1,8 @@
 package blocks
 
 import (
-	"github.com/terra-project/mantle/indexers/tx_infos"
-	"github.com/terra-project/mantle-sdk/types"
+	"github.com/terra-money/mantle-sdk/types"
+	"github.com/terra-money/mantle/indexers/tx_infos"
 	"reflect"
 )
 

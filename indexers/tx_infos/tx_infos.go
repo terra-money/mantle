@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"time"
 
-	. "github.com/terra-project/mantle-sdk/types"
-	lutils "github.com/terra-project/mantle/utils"
+	. "github.com/terra-money/mantle-sdk/types"
+	lutils "github.com/terra-money/mantle/utils"
 )
 
 // mantle-specific tx type
