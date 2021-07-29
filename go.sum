@@ -689,6 +689,10 @@ github.com/terra-money/cosmos-sdk v0.39.2-public.6-mutex-2 h1:7HztaYZXoUWsr4sjtU
 github.com/terra-money/cosmos-sdk v0.39.2-public.6-mutex-2/go.mod h1:VNUluciWBFj2vkhpMcp8rYZL/kCw0FtNc7SseUjE1KM=
 github.com/terra-money/go-cosmwasm v0.10.5 h1:gXlPFuSkVsRb80ZHkih2hONTpGcqkPXxneGEkFDViLc=
 github.com/terra-money/go-cosmwasm v0.10.5/go.mod h1:gAFCwllx97ejI+m9SqJQrmd2SBW7HA0fOjvWWJjM2uc=
+github.com/terra-money/mantle-compatibility v1.6.2-columbus-4 h1:Q0URKR9iEovesFHcfK4ACAQljcOIFYu3OQLyACvvnUI=
+github.com/terra-money/mantle-compatibility v1.6.2-columbus-4/go.mod h1:oFWLuLSnLDWQST3NwQirRRqu1URor5ze3pXTaVLL548=
+github.com/terra-money/mantle-sdk v0.3.12-0.20210729110025-afa14833707d h1:XrhBtLzhB1+beb2PuONK/byApt+9vwge1RHAv7JYPzw=
+github.com/terra-money/mantle-sdk v0.3.12-0.20210729110025-afa14833707d/go.mod h1:BSR4UFluHM3enL74lZN4LYsDmlZwp1FirAXPK5wgfkg=
 github.com/terra-project/core v0.4.1/go.mod h1:kPBkaYEsdH73eMITy+vWQRE7aqMi4BvjnqAcIpxYVh4=
 github.com/terra-project/core v0.4.6-0.20210408065940-14f6b52b7624 h1:FP+VYdlz9sTf9tYGaKSZ0VTl8t6Fsz1mh5egEWszjYA=
 github.com/terra-project/core v0.4.6-0.20210408065940-14f6b52b7624/go.mod h1:U8uN91QNHhKiCMRZtPpvQ637IJt2udDjhzIO3rUhUqE=
