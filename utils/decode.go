@@ -3,7 +3,7 @@ package utils
 import (
 	"encoding/base64"
 	"encoding/json"
-	"github.com/terra-money/core/x/wasm"
+	"github.com/terra-project/core/x/wasm"
 	"reflect"
 )
 
