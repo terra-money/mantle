@@ -1,6 +1,6 @@
 # Mantle
 
-> 🚧 Under heavy construction! 🚧
+> 🚧 This package is deprecated. For columbus-5 compatible version of mantle, [this](https://github.com/terra-money/mantlemint) is what you're looking for. 🚧
 
 This repository contains official indexers built on [mantle-sdk](https://github.com/terra-money/mantle-sdk).
 
