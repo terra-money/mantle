@@ -22,7 +22,6 @@ go mod download
 `mantle` depends on 3 modules:
 - [terra-money/core](https://github.com/terra-money/core): official terra network repository.
 - [terra-money/mantle-sdk](https://github.com/terra-money/mantle-sdk): official `mantle-sdk`.
-- [terra-money/mantle-compatibility](https://:github.com/terra-money/mantle-compatibility): compatibility provider for mantle-sdk.
 
 Versions of these packages need to adjusted in `go.mod` file to match the version of the network you are trying to index.
 
